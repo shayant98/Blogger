@@ -77,7 +77,13 @@ public class LoginActivity extends AppCompatActivity {
 
     private void goToFeed(){
         Intent intent = new Intent(LoginActivity.this, NavigationActivity.class);
-        startActivity(intent);
+
+
+        Pair[] pairs = new Pair[1];
+        pairs[0] = new Pair<View, String>(logoText, "name_transistion");
+
+        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this,pairs);
+        startActivity(intent, options.toBundle());
         finish();
     }
 }

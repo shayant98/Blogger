@@ -58,7 +58,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         if (drawerLayout.isDrawerOpen(GravityCompat.START)){
             drawerLayout.closeDrawer(GravityCompat.START);
         }else{
-
+//            finish();
             super.onBackPressed();
         }
     }
