@@ -20,6 +20,7 @@
 
 
     <TextView
+        android:id="@+id/logoTextRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/bungee"
@@ -31,7 +32,7 @@
         />
 
     <TextView
-        android:id="@+id/slogan_continue"
+        android:id="@+id/sloganTextRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sign Up met je studentennummer"
@@ -48,10 +49,10 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            >
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/studNrInput"
+                android:id="@+id/studNrRegister"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="studentennummer"
@@ -62,13 +63,12 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/passwordInput"
+                android:id="@+id/passwordRegister"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="password"
@@ -79,9 +79,10 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/SignUp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sign In!"
+        android:text="Sign Up!"
         android:background="#000"
         android:textColor="#fff"
         android:layout_marginTop="5dp"
@@ -89,6 +90,7 @@
         android:transitionName="btn_transistion"/>
 
     <Button
+        android:id="@+id/goToLogIn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#00000000"

@@ -64,6 +64,6 @@ public class LoginActivity extends AppCompatActivity {
 
         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this,pairs);
         startActivity(intent, options.toBundle());
-        finish(); //zodat de gebruiker niet terug kan gaan (verwijderd het van de act list)
+         //zodat de gebruiker niet terug kan gaan (verwijderd het van de act list)
     }
 }
