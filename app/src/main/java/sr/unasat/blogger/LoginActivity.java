@@ -47,6 +47,13 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        logIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToFeed();
+            }
+        });
+
 
     }
 
@@ -65,5 +72,12 @@ public class LoginActivity extends AppCompatActivity {
         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this,pairs);
         startActivity(intent, options.toBundle());
          //zodat de gebruiker niet terug kan gaan (verwijderd het van de act list)
+    }
+
+
+    private void goToFeed(){
+        Intent intent = new Intent(LoginActivity.this, NavigationActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
