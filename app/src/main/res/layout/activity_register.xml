@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RegisterActivity"
-    android:background="#fff"
     android:orientation="vertical"
+    android:background="#fff"
     android:padding="20dp">
 
 
@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/bungee"
-        android:text="Welcome"
+        android:text="Welkom"
         android:textColor="#000"
         android:textSize="40sp"
         android:layout_marginTop="-20dp"
@@ -35,7 +35,7 @@
         android:id="@+id/sloganTextRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sign Up met je studentennummer"
+        android:text="Registreer met je pas, om verder te gaan"
         android:textSize="18sp"
         android:transitionName="slogan_transistion"
         />
@@ -48,13 +48,14 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/studNrRegister"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
                 android:hint="studentennummer"
                 android:inputType="text"
                 android:transitionName="studnr_transistion"
@@ -65,6 +66,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -76,15 +78,17 @@
                 android:transitionName="password_transistion"/>
 
         </com.google.android.material.textfield.TextInputLayout>
+
+
     </LinearLayout>
 
     <Button
         android:id="@+id/SignUp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sign Up!"
+        android:text="Registreren!"
         android:background="#000"
-        android:textColor="#fff"
+        android:textColor="#FFF"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         android:transitionName="btn_transistion"/>

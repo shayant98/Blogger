@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN); //set app als fullscreen
+        getWindow().setNavigationBarColor(getResources().getColor(R.color.splash));
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
