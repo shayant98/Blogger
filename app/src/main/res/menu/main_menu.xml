@@ -10,7 +10,8 @@
     </group>
 
 
-    <item android:title="Account">
+    <item android:title="Account"
+        >
         <menu>
             <group android:checkableBehavior="single">
                 <item
