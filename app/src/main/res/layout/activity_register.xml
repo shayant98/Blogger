@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity"
-    android:orientation="vertical"
+    tools:context=".RegisterActivity"
     android:background="#fff"
+    android:orientation="vertical"
     android:padding="20dp">
 
 
@@ -15,23 +15,26 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:transitionName="logo_transistion"
+
         android:src="@drawable/unasat_logo"/>
 
+
     <TextView
-        android:id="@+id/logoText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/bungee"
-        android:transitionName="name_transistion"
-        android:text="Hello there, Welcome Back"
+        android:text="Welcome"
         android:textColor="#000"
-        android:textSize="40sp" />
+        android:textSize="40sp"
+        android:layout_marginTop="-20dp"
+        android:transitionName="name_transistion"
+        />
 
     <TextView
-        android:id="@+id/sloganText"
+        android:id="@+id/slogan_continue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sign In to continue"
+        android:text="Sign Up met je studentennummer"
         android:textSize="18sp"
         android:transitionName="slogan_transistion"
         />
@@ -39,76 +42,59 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
+
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/studNr"
-                android:hint="student#"
+                android:id="@+id/studNrInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="studentennummer"
+                android:inputType="text"
                 android:transitionName="studnr_transistion"
                 />
 
         </com.google.android.material.textfield.TextInputLayout>
 
-
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/password"
-            app:passwordToggleEnabled="true"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/passwordInput"
-                android:inputType="textPassword"
-                android:hint="Password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="password"
+                android:inputType="textPassword"
                 android:transitionName="password_transistion"/>
 
         </com.google.android.material.textfield.TextInputLayout>
-
-        <Button
-            android:id="@+id/forgetPassword"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:background="#0000000"
-            android:text="Forget Password?"
-            android:layout_gravity="right"
-            android:elevation="0dp"
-            android:layout_margin="5dp"/>
-
-        <Button
-            android:id="@+id/logIn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Sign In!"
-            android:background="#000"
-            android:textColor="#fff"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:transitionName="btn_transistion"/>
-
-        <Button
-            android:id="@+id/register"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#0000000"
-            android:text="New User?"
-            android:layout_gravity="right"
-            android:elevation="0dp"
-            android:layout_margin="5dp"
-            android:transitionName="login_signup_transistion"/>
-
     </LinearLayout>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sign In!"
+        android:background="#000"
+        android:textColor="#fff"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:transitionName="btn_transistion"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#00000000"
+        android:text="Al geregistreerd? Log in"
+        android:layout_gravity="right"
+        android:elevation="0dp"
+        android:layout_margin="5dp"
+        android:transitionName="login_signup_transistion"/>
 </LinearLayout>
