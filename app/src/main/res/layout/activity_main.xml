@@ -9,13 +9,14 @@
     >
 
 
-    <ImageView
+     <ImageView
         android:id="@+id/logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="100dp"
         android:layout_marginEnd="10dp"
+         android:transitionName="logo_transistion"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -28,6 +29,7 @@
         android:layout_marginTop="125dp"
         android:fontFamily="@font/bangers"
         android:text="UnaIn"
+        android:transitionName="name_transition"
         android:textAlignment="center"
         android:textSize="70sp"
         app:layout_constraintEnd_toEndOf="parent"
