@@ -18,8 +18,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        final String SQL_CREATE_USER_TABLE = " CREATE TABLE "+
-                userContract.UserEntry.TABLE_NAME + " (";
+        final String SQL_CREATE_USER_TABLE = " CREATE TABLE " + userContract.UserEntry.TABLE_NAME +
+                " (" + userContract.UserEntry.USERS_ID + " INTEGER PRIMARY KEY," + userContract.UserEntry.USERS_PERSON_ID + " INTEGER NOT NULL," + " FOREIGN KEY(" + userContract.UserEntry.USERS_PERSON_ID + ") REFERENCES" + "Hier_moet foreign table name en (PK)"
+                + userContract.UserEntry.USERS_USERNAME + " STRING NOT NULL UNIQUE," + userContract.UserEntry.USERS_EMAIL + " STRING NOT NULL UNIQUE," + userContract.UserEntry.USERS_PASSWORD + " STRING NOT NULL," + userContract.UserEntry.USERS_BIO + " TEXT," + userContract.UserEntry.USERS_ROLE + " STRING NOT NULL," + userContract.UserEntry.USERS_DATE_CREATED + "TEXT," + userContract.UserEntry.USERS_DATE_UPDATED + " TEXT)";
     }
 
     @Override
