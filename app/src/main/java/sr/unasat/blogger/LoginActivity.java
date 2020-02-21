@@ -83,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
         pairs[0] = new Pair<View, String>(logoText, "name_transistion");
 
         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this,pairs);
-        startActivity(intent, options.toBundle());
+        startActivity(intent);
         finish();
     }
 }
