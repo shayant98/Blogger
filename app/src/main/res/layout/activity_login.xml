@@ -99,6 +99,13 @@
             android:layout_marginBottom="5dp"
             android:transitionName="btn_transistion"/>
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="@style/Widget.AppCompat.ProgressBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:visibility="gone" />
+
         <Button
             android:id="@+id/register"
             android:layout_width="match_parent"
@@ -109,6 +116,8 @@
             android:elevation="0dp"
             android:layout_margin="5dp"
             android:transitionName="login_signup_transistion"/>
+
+
 
     </LinearLayout>
 

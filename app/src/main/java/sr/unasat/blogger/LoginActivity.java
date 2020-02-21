@@ -5,11 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Pair;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -20,6 +22,7 @@ public class LoginActivity extends AppCompatActivity {
     ImageView logo;
     TextView logoText, sloganText;
     TextInputEditText studentenNummer, passwordInput;
+    ProgressBar progressBar;
 
 
     @Override
@@ -32,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
         forgetPassword = findViewById(R.id.forgetPassword);
         logIn = findViewById(R.id.logIn);
         register = findViewById(R.id.register);
+        progressBar = findViewById(R.id.progressBar);
 
         logo = findViewById(R.id.logoImage);
         logoText = findViewById(R.id.logoText);
@@ -76,14 +80,29 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void goToFeed(){
-        Intent intent = new Intent(LoginActivity.this, NavigationActivity.class);
+        logIn.setVisibility(View.GONE);
+        progressBar.setVisibility(View.VISIBLE);
 
 
-        Pair[] pairs = new Pair[1];
-        pairs[0] = new Pair<View, String>(logoText, "name_transistion");
+        // DELAY ALEEN VOOR TEST!!!!!!!!!! MOET  WEG
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
 
-        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this,pairs);
-        startActivity(intent);
-        finish();
+//                REDIRECT TO FEED CODE ()
+                Intent intent = new Intent(LoginActivity.this, NavigationActivity.class);
+
+
+                Pair[] pairs = new Pair[1];
+                pairs[0] = new Pair<View, String>(logoText, "name_transistion");
+
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this,pairs);
+                startActivity(intent);
+                finish();
+            }
+        }, 3000);   //3 seconds
+
+
+
     }
 }
