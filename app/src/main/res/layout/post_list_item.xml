@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.card.MaterialCardView
+        style="@style/Widget.MaterialComponents.CardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/mtrl_card_spacing"
+        android:layout_marginTop="@dimen/mtrl_card_spacing"
+        android:layout_marginRight="@dimen/mtrl_card_spacing"
+        android:minHeight="100dp"
+        >
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="vertical">
+
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="POST TITLE"
+               android:layout_marginStart="10dp"
+               android:fontFamily="@font/bungee"
+               android:textSize="18sp"/>
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal"
+               android:padding="10dp">
+
+               <LinearLayout
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_weight="0.05">
+
+                   <ImageView
+                       android:layout_width="80dp"
+                       android:layout_height="80dp"
+                       android:src="@drawable/user_icon"/>
+
+               </LinearLayout>
+
+               <LinearLayout
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_weight="0.95">
+
+                   <TextView
+                       android:paddingEnd="10sp"
+                       android:paddingStart="10dp"
+                       android:layout_width="match_parent"
+                       android:layout_height="60dp"
+                       android:text="@string/dummy_text"
+                       android:fontFamily="@font/antic"
+                       android:textSize="12sp"/>
+               </LinearLayout>
+
+           </LinearLayout>
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal"
+               android:paddingStart="10dp"
+               android:paddingEnd="10dp"
+               android:paddingBottom="5dp">
+
+               <LinearLayout
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_weight="0.9">
+
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:text="Schrijver"
+                       android:fontFamily="@font/antic"
+                       android:textColor="#000"
+                       android:textSize="12sp"
+                       />
+
+               </LinearLayout>
+
+               <LinearLayout
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_weight="0.1">
+
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:text="12/12/2019"
+                       android:fontFamily="@font/antic"
+                       android:textColor="#000"
+                       android:textSize="12sp"/>
+               </LinearLayout>
+
+           </LinearLayout>
+
+
+           <View
+               android:layout_width="match_parent"
+               android:layout_height="1dp"
+               android:background="#c0c0c0"/>
+
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal"
+               android:padding="10dp">
+
+               <LinearLayout
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_weight="0.5">
+
+
+
+               </LinearLayout>
+
+               <LinearLayout
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_weight="0.5"
+                   >
+
+                   <ImageView
+                       android:layout_width="30sp"
+                       android:layout_height="30sp"
+                       android:src="@drawable/share_icon"
+                       android:layout_gravity="end"/>
+               </LinearLayout>
+
+           </LinearLayout>
+
+       </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</LinearLayout>

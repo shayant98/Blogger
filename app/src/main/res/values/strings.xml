@@ -3,6 +3,7 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="nav_drawer_open">Open navigation drawer</string>
     <string name="nav_drawer_close">Close navigation drawer</string>
+    <string name="dummy_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec aliquam ultrices libero, sit amet gravida felis. Cras eget dolor non lacus pharetra auctor sed in elit. Donec imperdiet tempus posuere. Fusce elementum nunc ligula, ut ullamcorper dolor congue vel. Etiam ac semper nisl, vitae aliquam nunc. Morbi imperdiet placerat urna, sit amet hendrerit orci. Proin elementum nibh eu odio maximus.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
