@@ -20,11 +20,12 @@ public class RegisterActivity extends AppCompatActivity {
     ImageView logo;
     TextView logoText, sloganText;
     TextInputEditText studentenNummer, passwordInput;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN); //set app als fullscreen
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN); //set app als fullscreen
 
 
         SignUpBtn = findViewById(R.id.SignUp);
@@ -57,8 +58,23 @@ public class RegisterActivity extends AppCompatActivity {
         pairs[5] = new Pair<View, String>(SignUpBtn, "btn_transistion");
         pairs[6] = new Pair<View, String>(logIn, "login_signup_transistion");
 
-        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(RegisterActivity.this,pairs);
+        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(RegisterActivity.this, pairs);
         startActivity(intent, options.toBundle());
         //zodat de gebruiker niet terug kan gaan (verwijderd het van de act list)
     }
+
+
+    private Boolean validateStudentNr() {
+        String value = studentenNummer.getText().toString();
+
+        if (value.isEmpty()) {
+            studentenNummer.setError("Field cannot be empty");
+            return false;
+        } else {
+            studentenNummer.setError(null);
+            return true;
+        }
+    }
+
+
 }
