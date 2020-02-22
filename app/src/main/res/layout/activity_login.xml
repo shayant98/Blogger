@@ -45,36 +45,37 @@
         >
 
         <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
+            android:id="@+id/studentNrLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/studNr"
-                android:hint="Pasnummer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:transitionName="studnr_transistion"
-                />
+                android:hint="Pasnummer"
+                android:transitionName="studnr_transistion" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
 
         <com.google.android.material.textfield.TextInputLayout
 
-            app:passwordToggleEnabled="true"
-            android:layout_width="match_parent"
+            android:id="@+id/passwordLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/password"
 
-                android:inputType="textPassword"
-                android:hint="Wachtwoord"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:transitionName="password_transistion"/>
+                android:hint="Wachtwoord"
+                android:inputType="textPassword"
+                android:transitionName="password_transistion" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -101,9 +102,10 @@
 
         <ProgressBar
             android:id="@+id/progressBar"
-            style="@style/Widget.AppCompat.ProgressBar"
+            style="?android:attr/progressBarStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             tools:visibility="gone" />
 
         <Button
@@ -116,7 +118,6 @@
             android:elevation="0dp"
             android:layout_margin="5dp"
             android:transitionName="login_signup_transistion"/>
-
 
 
     </LinearLayout>

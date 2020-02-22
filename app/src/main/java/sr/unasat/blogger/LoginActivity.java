@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -22,6 +23,7 @@ public class LoginActivity extends AppCompatActivity {
     ImageView logo;
     TextView logoText, sloganText;
     TextInputEditText studentenNummer, passwordInput;
+    TextInputLayout studentNrLayout, passwordLayout;
     ProgressBar progressBar;
 
 
@@ -42,6 +44,9 @@ public class LoginActivity extends AppCompatActivity {
         sloganText = findViewById(R.id.sloganText);
         studentenNummer = findViewById(R.id.studNr);
         passwordInput = findViewById(R.id.password);
+
+        studentNrLayout = findViewById(R.id.studentNrLayout);
+        passwordLayout = findViewById(R.id.passwordLayout);
 
 
         register.setOnClickListener(new View.OnClickListener() {
@@ -80,29 +85,63 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void goToFeed(){
-        logIn.setVisibility(View.GONE);
-        progressBar.setVisibility(View.VISIBLE);
+        validateStudentNr();
+        validatePassword();
+
+        if (validatePassword() || validateStudentNr()){
+
+            logIn.setVisibility(View.GONE);
+            progressBar.setVisibility(View.VISIBLE);
 
 
-        // DELAY ALEEN VOOR TEST!!!!!!!!!! MOET  WEG
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
+            // DELAY ALEEN VOOR TEST!!!!!!!!!! MOET  WEG
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                public void run() {
 
 //                REDIRECT TO FEED CODE ()
-                Intent intent = new Intent(LoginActivity.this, NavigationActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, NavigationActivity.class);
 
 
-                Pair[] pairs = new Pair[1];
-                pairs[0] = new Pair<View, String>(logoText, "name_transistion");
+                    Pair[] pairs = new Pair[1];
+                    pairs[0] = new Pair<View, String>(logoText, "name_transistion");
 
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this,pairs);
-                startActivity(intent);
-                finish();
-            }
-        }, 3000);   //3 seconds
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this,pairs);
+                    startActivity(intent);
+                    finish();
+                }
+            }, 3000);   //3 seconds
+        }
 
 
 
+    }
+
+
+    private Boolean validateStudentNr(){
+        studentNrLayout.setErrorEnabled(true);
+        String value = studentenNummer.getText().toString().trim();
+
+
+        if (value.isEmpty()){
+            studentNrLayout.setError("Aub je studentnummer invoeren");
+            return false;
+        }else{
+            studentNrLayout.setErrorEnabled(false);
+            return true;
+        }
+    }
+    private Boolean validatePassword(){
+        passwordLayout.setErrorEnabled(true);
+        String value = passwordInput.getText().toString().trim();
+
+
+        if (value.isEmpty()){
+            passwordLayout.setError("Aub een wachtwoord invoeren");
+            return false;
+        }else{
+            passwordLayout.setErrorEnabled(false);
+            return true;
+        }
     }
 }
