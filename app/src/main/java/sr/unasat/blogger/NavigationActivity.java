@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.WindowManager;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationView;
 
 public class NavigationActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -90,25 +91,26 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     }
 
     private void showLogoutMessage(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.AlertDialog);
-        builder.setMessage("Ben je zeker dat je wilt uitloggen? Je zult de laatste berichten niet kunnen volgen")
-                .setCancelable(false).setPositiveButton("Ja", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(NavigationActivity.this, LoginActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        }).setNegativeButton("Nee", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-                navigationView.setCheckedItem(R.id.nav_home);
-                loadFragment(new FeedFragment());
-            }
-        });
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
+        new MaterialAlertDialogBuilder(this)
+                .setTitle("Bent u zeker?")
+                .setMessage("Als u uitlogt, zult u de laatste berichten niet kunnen volgen")
+                .setPositiveButton("Uitloggen", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(NavigationActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                })
+                .setNegativeButton("Blijven", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                        navigationView.setCheckedItem(R.id.nav_home);
+                        loadFragment(new FeedFragment());
+                    }
+                })
+                .show();
     }
 
 

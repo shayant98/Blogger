@@ -87,8 +87,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Registreren!"
-        android:background="#000"
-        android:textColor="#FFF"
+        style="@style/blackBtnStyle"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         android:transitionName="btn_transistion"/>
@@ -97,10 +96,9 @@
         android:id="@+id/goToLogIn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#00000000"
+        style="@style/clearBtnStyle"
         android:text="Al geregistreerd? Log in"
         android:layout_gravity="right"
-        android:elevation="0dp"
         android:layout_margin="5dp"
         android:transitionName="login_signup_transistion"/>
 </LinearLayout>

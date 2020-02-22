@@ -82,7 +82,7 @@
             android:layout_height="125dp"
             android:layout_margin="10dp"
             android:layout_weight="0.3"
-            app:cardBackgroundColor="#fece2f"
+            app:cardBackgroundColor="@color/colorPrimary"
             app:cardElevation="10dp">
 
 
@@ -119,7 +119,7 @@
             android:layout_height="125dp"
             android:layout_margin="10dp"
             android:layout_weight="0.3"
-            app:cardBackgroundColor="#fece2f"
+            app:cardBackgroundColor="@color/colorPrimary"
             app:cardElevation="10dp">
 
 
@@ -186,7 +186,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Kwattaweg 685"
-                android:drawableLeft="@drawable/location_icon"
+                android:drawableStart="@drawable/location_icon"
                 android:drawablePadding="10dp"
                 android:enabled="false"
                 >
@@ -218,15 +218,14 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#fece2f"
-            android:textColor="#000"
-
+            android:backgroundTint="@color/colorPrimaryDark"
+            style="@style/blackBtnStyle"
             android:text="Bijwerken"/>
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?android:attr/selectableItemBackground"
+            style="@style/clearBtnStyle"
             android:textColor="#E72727"
             android:text="Account Verwijderen"
             android:layout_gravity="bottom"/>

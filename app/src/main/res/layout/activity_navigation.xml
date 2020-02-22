@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".NavigationActivity"
     android:fitsSystemWindows="true"
+    tools:openDrawer="start"
     >
 
     <com.google.android.material.navigation.NavigationView
@@ -26,9 +27,9 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
-            android:layout_width="match_parent"
+            android:layout_width="409dp"
             android:layout_height="wrap_content"
-            android:background="#00000000"
+            android:background="#00FECE2F"
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme"
             app:layout_constraintEnd_toEndOf="parent"
@@ -37,7 +38,6 @@
             app:navigationIcon="@drawable/menu_icon" />
 
         <FrameLayout
-
             android:id="@+id/fragmentContainer"
             android:layout_width="0dp"
             android:layout_height="0dp"

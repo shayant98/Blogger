@@ -46,36 +46,36 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/studentNrLayout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/studNr"
+                android:hint="Pasnummer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Pasnummer"
-                android:transitionName="studnr_transistion" />
+                android:transitionName="studnr_transistion"
+                />
 
         </com.google.android.material.textfield.TextInputLayout>
 
 
         <com.google.android.material.textfield.TextInputLayout
-
             android:id="@+id/passwordLayout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:passwordToggleEnabled="true"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:passwordToggleEnabled="true">
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/password"
 
+                android:inputType="textPassword"
+                android:hint="Wachtwoord"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Wachtwoord"
-                android:inputType="textPassword"
-                android:transitionName="password_transistion" />
+                android:transitionName="password_transistion"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -83,41 +83,41 @@
             android:id="@+id/forgetPassword"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:background="#00000000"
+            style="@style/clearBtnStyle"
             android:text="Wachtwoord vergeten?"
             android:layout_gravity="right"
-            android:elevation="0dp"
             android:layout_margin="5dp"/>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/logIn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Inloggen"
-            android:background="#000"
-            android:textColor="#fff"
+            style="@style/blackBtnStyle"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:transitionName="btn_transistion"/>
 
         <ProgressBar
             android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyle"
+            style="@style/Widget.AppCompat.ProgressBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            tools:visibility="gone" />
+            tools:visibility="visible"
+            />
 
         <Button
             android:id="@+id/register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#00000000"
+            style="@style/clearBtnStyle"
             android:text="Nieuwe gebruiker? Maak hier een account"
             android:layout_gravity="right"
             android:elevation="0dp"
             android:layout_margin="5dp"
             android:transitionName="login_signup_transistion"/>
+
 
 
     </LinearLayout>
