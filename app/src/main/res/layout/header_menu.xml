@@ -24,7 +24,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/antic"
-        android:text="User pas nr" />
+        android:text="User pas nr"
+        android:textStyle="italic" />
 
 
 </LinearLayout>

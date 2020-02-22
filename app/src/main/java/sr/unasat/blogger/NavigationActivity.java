@@ -49,8 +49,17 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
 
         navigationView.setNavigationItemSelectedListener(this);
 
-        navigationView.setCheckedItem(R.id.nav_home);
-        loadFragment(new FeedFragment());
+        int fragement = getIntent().getIntExtra("fragmentLoader",0);
+
+
+
+        if(savedInstanceState == null && fragement == 0){
+            navigationView.setCheckedItem(R.id.nav_home);
+            loadFragment(new FeedFragment());
+        }else if(fragement == 1){
+            navigationView.setCheckedItem(R.id.nav_account);
+            loadFragment(new AccountFragment());
+        }
 
     }
 

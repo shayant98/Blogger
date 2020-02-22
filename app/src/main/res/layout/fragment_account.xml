@@ -216,6 +216,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
+            android:id="@+id/updateBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/colorPrimaryDark"
@@ -223,6 +224,7 @@
             android:text="Bijwerken"/>
 
         <Button
+            android:id="@+id/deleteBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/clearBtnStyle"
