@@ -1,104 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RegisterActivity"
-    android:orientation="vertical"
-    android:background="#fff"
-    android:padding="20dp">
+    android:background="#fff">
 
-
-    <ImageView
-        android:id="@+id/logoImage"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:transitionName="logo_transistion"
-
-        android:src="@drawable/unasat_logo"/>
-
-
-    <TextView
-        android:id="@+id/logoTextRegister"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/bungee"
-        android:text="Welkom"
-        android:textColor="#000"
-        android:textSize="40sp"
-        android:layout_marginTop="-20dp"
-        android:transitionName="name_transistion"
-        />
-
-    <TextView
-        android:id="@+id/sloganTextRegister"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Registreer met je pas, om verder te gaan"
-        android:textSize="18sp"
-        android:transitionName="slogan_transistion"
-        />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="20dp">
+        <ImageView
+            android:id="@+id/logoImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:transitionName="logo_transistion"
+
+            android:src="@drawable/unasat_logo"/>
 
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/logoTextRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/bungee"
+            android:text="Welkom"
+            android:textColor="#000"
+            android:textSize="40sp"
+            android:layout_marginTop="-20dp"
+            android:transitionName="name_transistion"
+            />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/studNrRegister"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+        <TextView
+            android:id="@+id/sloganTextRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Registreer met je pas, om verder te gaan"
+            android:textSize="18sp"
+            android:transitionName="slogan_transistion"
+            />
 
-                android:hint="studentennummer"
-                android:inputType="text"
-                android:transitionName="studnr_transistion"
-                />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:passwordToggleEnabled="true">
+            android:orientation="vertical">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/passwordRegister"
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/studentNrRegisterLayout"
+                android:layout_width="match_parent"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/studentNrRegister"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:hint="Pasnummer"
+                    android:inputType="text"
+                    android:transitionName="studnr_transistion"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/passwordRegisterLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="password"
-                android:inputType="textPassword"
-                android:transitionName="password_transistion"/>
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:passwordToggleEnabled="true">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/passwordRegister"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Wachtwoord"
+                    android:inputType="textPassword"
+                    android:transitionName="password_transistion"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/passwordConfirmRegisterLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/passwordConfirmRegister"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Herhaal Wachtwoord"
+                    android:inputType="textPassword"
+                    android:transitionName="password_transistion"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
 
 
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/SignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Registreren!"
+            style="@style/blackBtnStyle"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:transitionName="btn_transistion"/>
+
+        <Button
+            android:id="@+id/goToLogIn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/clearBtnStyle"
+            android:text="Al geregistreerd? Log in"
+            android:layout_gravity="right"
+            android:layout_margin="5dp"
+            android:transitionName="login_signup_transistion"/>
     </LinearLayout>
-
-    <Button
-        android:id="@+id/SignUp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Registreren!"
-        style="@style/blackBtnStyle"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:transitionName="btn_transistion"/>
-
-    <Button
-        android:id="@+id/goToLogIn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/clearBtnStyle"
-        android:text="Al geregistreerd? Log in"
-        android:layout_gravity="right"
-        android:layout_margin="5dp"
-        android:transitionName="login_signup_transistion"/>
-</LinearLayout>
+</ScrollView>

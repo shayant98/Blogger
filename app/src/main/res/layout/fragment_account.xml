@@ -219,7 +219,6 @@
             android:id="@+id/updateBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorPrimaryDark"
             style="@style/blackBtnStyle"
             android:text="Bijwerken"/>
 

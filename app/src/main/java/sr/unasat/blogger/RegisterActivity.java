@@ -34,7 +34,7 @@ public class RegisterActivity extends AppCompatActivity {
         logo = findViewById(R.id.logoImage);
         logoText = findViewById(R.id.logoTextRegister);
         sloganText = findViewById(R.id.sloganTextRegister);
-        studentenNummer = findViewById(R.id.studNrRegister);
+        studentenNummer = findViewById(R.id.studentNrRegister);
         passwordInput = findViewById(R.id.passwordRegister);
 
 
