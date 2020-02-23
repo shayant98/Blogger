@@ -9,14 +9,14 @@
     >
 
 
-     <ImageView
+    <ImageView
         android:id="@+id/logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="200dp"
         android:layout_marginEnd="10dp"
-         android:transitionName="logo_transistion"
+        android:transitionName="logo_transistion"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -26,13 +26,14 @@
         android:id="@+id/name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="125dp"
+        android:layout_marginTop="84dp"
         android:fontFamily="@font/bangers"
-        android:text="App naam hier"
-        android:transitionName="name_transition"
+        android:text="@string/app_name"
         android:textAlignment="center"
         android:textSize="70sp"
+        android:transitionName="name_transition"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logo" />
 
@@ -42,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="13dp"
         android:fontFamily="@font/antic"
-        android:text="korte Slogan"
+        android:text="@string/app_slogan"
         android:textAlignment="center"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"

@@ -1,6 +1,7 @@
 package sr.unasat.blogger;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -16,6 +17,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
+
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 
 public class AccountFragment extends Fragment {
@@ -55,6 +59,12 @@ public class AccountFragment extends Fragment {
                 goToUpdate();
             };
         });
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteAccount();
+            }
+        });
     }
 
     private void goToUpdate() {
@@ -62,5 +72,30 @@ public class AccountFragment extends Fragment {
         startActivity(intent);
     }
 
+
+    private void deleteAccount(){
+        showDeleteUserMessage();
+    }
+
+
+    private void showDeleteUserMessage(){
+        new MaterialAlertDialogBuilder(getActivity())
+                .setView(R.layout.delete_dialog)
+                .setTitle("We gaan u missen...")
+                .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getContext(), "Yes", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton("Nee", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        Toast.makeText(getContext(), "Yes", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .show();
+    }
 
 }

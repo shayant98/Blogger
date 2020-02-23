@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/bungee"
         android:transitionName="name_transistion"
-        android:text="Welcome, Student"
+        android:text="Welkom, Student"
         android:textColor="#000"
         android:textSize="40sp" />
 
@@ -45,6 +45,7 @@
         >
 
         <com.google.android.material.textfield.TextInputLayout
+            android:layout_marginBottom="10dp"
             android:id="@+id/studentNrLayout"
             android:layout_width="match_parent"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -63,6 +64,7 @@
 
 
         <com.google.android.material.textfield.TextInputLayout
+            android:layout_marginBottom="10dp"
             android:id="@+id/passwordLayout"
             app:passwordToggleEnabled="true"
             android:layout_width="match_parent"
