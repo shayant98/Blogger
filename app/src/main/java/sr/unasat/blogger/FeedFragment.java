@@ -30,4 +30,8 @@ public class FeedFragment extends Fragment {
 
         return inflater.inflate(R.layout.fragment_feed, container, false);
     }
+
+//    TODO: Request to REST Service
+
+//    TODO: Setup Adapter for recyclerview with data from REST call
 }

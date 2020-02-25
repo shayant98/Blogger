@@ -56,6 +56,7 @@ public class UpdateUserActivity extends AppCompatActivity {
         updateUserTask.execute(10);
     }
 
+//   TODO: Receive ContentValues object iof Integer
     private class AsyncUpdateUser extends AsyncTask<Integer,Integer,String>{
 
 
@@ -66,7 +67,9 @@ public class UpdateUserActivity extends AppCompatActivity {
 
 
         @Override
-        protected String doInBackground(Integer... contentValues) {
+        protected String doInBackground(Integer... contentValues)
+        {
+//            TODO: Actually update User
             return "Updated!";
         }
 

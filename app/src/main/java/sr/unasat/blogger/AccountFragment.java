@@ -41,9 +41,8 @@ public class AccountFragment extends Fragment {
         toolbar = getActivity().findViewById(R.id.toolbar);
 
         toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_account, container, false);
-
+//    TODO: Fill fields with actual user data
 
 
     }

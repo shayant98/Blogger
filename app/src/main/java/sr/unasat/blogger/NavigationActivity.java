@@ -27,6 +27,8 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     NavigationView navigationView;
     Toolbar toolbar;
 
+//    TODO: Fill Header with actual logged in user data
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

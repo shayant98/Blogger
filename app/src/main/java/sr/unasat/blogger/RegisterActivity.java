@@ -64,6 +64,8 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
 
+//    TODO: Build validation
+//    TODO: Register User Function
     private Boolean validateStudentNr() {
         String value = studentenNummer.getText().toString();
 

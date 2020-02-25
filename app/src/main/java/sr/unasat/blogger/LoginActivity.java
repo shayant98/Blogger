@@ -59,11 +59,25 @@ public class LoginActivity extends AppCompatActivity {
         logIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goToFeed();
+                LoginUser();
             }
         });
 
 
+    }
+
+
+    private void LoginUser(){
+        validateStudentNr();
+        validatePassword();
+
+
+//        TODO: Check user Data in db
+        if (validateStudentNr() && validatePassword()){
+            logIn.setVisibility(View.GONE);
+            progressBar.setVisibility(View.VISIBLE);
+            goToFeed();
+        }
     }
 
     private void goToRegister() {
@@ -85,13 +99,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void goToFeed(){
-        validateStudentNr();
-        validatePassword();
 
-        if (validatePassword() || validateStudentNr()){
-
-            logIn.setVisibility(View.GONE);
-            progressBar.setVisibility(View.VISIBLE);
 
 
             // DELAY ALEEN VOOR TEST!!!!!!!!!! MOET  WEG
@@ -101,17 +109,11 @@ public class LoginActivity extends AppCompatActivity {
 
 //                REDIRECT TO FEED CODE ()
                     Intent intent = new Intent(LoginActivity.this, NavigationActivity.class);
-
-
-                    Pair[] pairs = new Pair[1];
-                    pairs[0] = new Pair<View, String>(logoText, "name_transistion");
-
-                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this,pairs);
                     startActivity(intent);
                     finish();
                 }
             }, 3000);   //3 seconds
-        }
+
 
 
 
