@@ -227,7 +227,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/clearBtnStyle"
-            android:textColor="#E72727"
+            android:textColor="@color/colorError"
             android:text="Account Verwijderen"
             android:layout_gravity="bottom"/>
     </LinearLayout>

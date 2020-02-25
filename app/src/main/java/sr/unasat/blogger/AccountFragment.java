@@ -1,15 +1,12 @@
 package sr.unasat.blogger;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
@@ -20,12 +17,17 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 
 public class AccountFragment extends Fragment {
 
     Toolbar toolbar;
     Button updateBtn, deleteBtn;
+    TextInputEditText dialogPassword;
+    TextInputLayout dialogPasswordLayout;
 
 
     public AccountFragment() {
@@ -62,7 +64,7 @@ public class AccountFragment extends Fragment {
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteAccount();
+                showDeleteUserMessage();
             }
         });
     }
@@ -72,30 +74,61 @@ public class AccountFragment extends Fragment {
         startActivity(intent);
     }
 
+    private void goToLogin() {
+        Intent intent = new Intent(getActivity(), LoginActivity.class);
+        startActivity(intent);
+        getActivity().finish();
 
-    private void deleteAccount(){
-        showDeleteUserMessage();
+    }
+
+
+
+
+    private void deleteAccount(String password){
+
+//        TODO: Password vergelijken en duidelijke errors geven
+        goToLogin();
     }
 
 
     private void showDeleteUserMessage(){
-        new MaterialAlertDialogBuilder(getActivity())
-                .setView(R.layout.delete_dialog)
+
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.delete_dialog,null);
+        dialogPassword = view.findViewById(R.id.dialogPassword);
+        dialogPasswordLayout = view.findViewById(R.id.dialogPasswordLayout);
+        final AlertDialog builder = new MaterialAlertDialogBuilder(getActivity())
                 .setTitle("We gaan u missen...")
-                .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getContext(), "Yes", Toast.LENGTH_SHORT).show();
-                    }
-                })
+                .setView(view)
+                .setPositiveButton("Ja", null)
                 .setNegativeButton("Nee", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
-                        Toast.makeText(getContext(), "Yes", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
                     }
-                })
-                .show();
+                }).show();
+
+        Button positiveBtn = builder.getButton(AlertDialog.BUTTON_POSITIVE);
+        positiveBtn.setTextColor(getResources().getColor(R.color.colorError));
+        positiveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(dialogPassword.getText().toString().length() == 0){
+                    dialogPasswordLayout.setErrorEnabled(true);
+                    dialogPasswordLayout.setError("Vul aub uw wachtwoord in");
+                }else{
+                    dialogPasswordLayout.setErrorEnabled(false);
+                    deleteAccount(dialogPassword.getText().toString());
+                }
+            }
+        });
+
+
+
+
+
+
+
     }
 
 }

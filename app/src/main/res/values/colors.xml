@@ -3,6 +3,7 @@
     <color name="colorPrimary">#fece2f</color>
     <color name="colorPrimaryDark">#FF9800</color>
     <color name="colorAccent">#FF9800</color>
+    <color name="colorError">#E72727</color>
     <color name="textColor">#000</color>
     <color name="textColorDark">#fff</color>
     <color name="transparent">#00000000</color>
