@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Unasat-M</string>
     <string name="app_slogan">Alles Unasat</string>
+    <string name="nav_title_account">Mijn Account</string>
+    <string name="nav_title_home">Nieuws</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="nav_drawer_open">Open navigation drawer</string>
     <string name="nav_drawer_close">Close navigation drawer</string>
