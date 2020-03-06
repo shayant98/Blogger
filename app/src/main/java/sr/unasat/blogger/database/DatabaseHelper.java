@@ -20,28 +20,42 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        final String SQL_CREATE_STUDENT_TABLE = "";
-
-        final String SQL_CREATE_USER_TABLE = " CREATE TABLE " + userContract.UserEntry.TABLE_NAME +
-                " (" +
+        final String SQL_CREATE_USERS_TABLE = " CREATE TABLE " + userContract.UserEntry.TABLE_NAME + " (" +
                 userContract.UserEntry.USERS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                userContract.UserEntry.USERS_PERSON_ID + " INTEGER NOT NULL," +
-                " FOREIGN KEY(" + userContract.UserEntry.USERS_PERSON_ID + ") REFERENCES" + "Hier_moet foreign table name en (PK)"
-                + userContract.UserEntry.USERS_USERNAME + " STRING NOT NULL UNIQUE," +
-                userContract.UserEntry.USERS_EMAIL + " STRING NOT NULL UNIQUE,"
-                + userContract.UserEntry.USERS_PASSWORD + " STRING NOT NULL,"
-                + userContract.UserEntry.USERS_BIO + " TEXT,"
-                + userContract.UserEntry.USERS_ROLE + " STRING NOT NULL,"
-                + userContract.UserEntry.USERS_DATE_CREATED + "TEXT,"
-                + userContract.UserEntry.USERS_DATE_UPDATED + " TEXT)";
+                userContract.UserEntry.USERS_STUDENTS_ID + " INTEGER NOT NULL," +
+                " FOREIGN KEY(" + userContract.UserEntry.USERS_STUDENTS_ID + ") REFERENCES " +
+                studentContract.StudentEntry.STUDENTS_ADRESS + "(" + studentContract.StudentEntry.STUDENTS_ID + ")," +
+                userContract.UserEntry.USERS_USERNAME + " TEXT NOT NULL UNIQUE," +
+                userContract.UserEntry.USERS_EMAIL + " TEXT NOT NULL UNIQUE," +
+                userContract.UserEntry.USERS_PASSWORD + " TEXT NOT NULL," +
+                userContract.UserEntry.USERS_ROLE + " TEXT NOT NULL," +
+                userContract.UserEntry.USERS_DATE_CREATED + " TIMESTAMP DEFAULT," + //MOET HIER OOK CURENT TIMESTAMP
+                userContract.UserEntry.USERS_DATE_UPDATED + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP);"
+        ;
 
+        final String SQL_CREATE_STUDENTS_TABLE = " CREATE TABLE " + studentContract.StudentEntry.TABLE_NAME + " (" +
+                studentContract.StudentEntry.STUDENTS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                studentContract.StudentEntry.STUDENTS_FIRST_NAME + " TEXT NOT NULL," +
+                studentContract.StudentEntry.STUDENTS_NAME + " TEXT NOT NULL," +
+                studentContract.StudentEntry.STUDENTS_BIRTHDATE + " DATE," +
+                studentContract.StudentEntry.STUDENTS_ADRESS + " TEXT NOT NULL," +
+                studentContract.StudentEntry.STUDENTS_DISTRICT + " TEXT NOT NULL," +
+                studentContract.StudentEntry.STUDENTS_STUDENT_NUMBER + " TEXT NOT NULL," +
+                studentContract.StudentEntry.STUDENTS_PHONE_NUMBER + " TEXT NOT NULL," +
+                studentContract.StudentEntry.STUDENTS_EMAIL + " TEXT NOT NULL," +
+                studentContract.StudentEntry.STUDENTS_DATE_CREATED + " TIMESTAMP DEFAULT," +
+                studentContract.StudentEntry.STUDENTS_DATE_UPDATED + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP);"
+        ;
 
+        db.execSQL(SQL_CREATE_STUDENTS_TABLE);
+        db.execSQL(SQL_CREATE_USERS_TABLE);
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        db.execSQL("DROP TABLE IF EXISTS " + studentContract.StudentEntry.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + userContract.UserEntry.TABLE_NAME);
     }
 
 }
