@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
         name = findViewById(R.id.name);
         slogan = findViewById(R.id.slogan);
 
-
         //set animation
         logo.setAnimation(topAnimation);
         name.setAnimation(bottemAnimation);

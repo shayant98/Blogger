@@ -22,6 +22,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public DatabaseHelper(@Nullable Context context) {
         super(context, DB_NAME, null, DB_VERSION);
+
     }
 
     @Override
@@ -55,6 +56,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db.execSQL(SQL_CREATE_STUDENTS_TABLE);
         db.execSQL(SQL_CREATE_USERS_TABLE);
+        setDummiCredentials(db);
     }
 
     @Override
