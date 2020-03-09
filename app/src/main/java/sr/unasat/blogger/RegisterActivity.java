@@ -60,6 +60,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(RegisterActivity.this, pairs);
         startActivity(intent, options.toBundle());
+        finish();
         //zodat de gebruiker niet terug kan gaan (verwijderd het van de act list)
     }
 

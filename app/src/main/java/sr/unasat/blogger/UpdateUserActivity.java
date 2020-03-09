@@ -84,6 +84,7 @@ public class UpdateUserActivity extends AppCompatActivity {
             Intent intent = new Intent(UpdateUserActivity.this, NavigationActivity.class);
             intent.putExtra("fragmentLoader", 1);
             startActivity(intent);
+            finish();
         }
     }
 }

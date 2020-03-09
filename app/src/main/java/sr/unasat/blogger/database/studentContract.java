@@ -1,10 +1,14 @@
 package sr.unasat.blogger.database;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
+
+import sr.unasat.blogger.Entity.User;
 
 public class studentContract {
 
     public studentContract() {
+
     }
 
 
@@ -22,4 +26,7 @@ public class studentContract {
         public static final String STUDENTS_DATE_CREATED = "date_created";
         public static final String STUDENTS_DATE_UPDATED = "date_updated";
     }
+
+
+
 }

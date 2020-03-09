@@ -11,6 +11,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -56,7 +57,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db.execSQL(SQL_CREATE_STUDENTS_TABLE);
         db.execSQL(SQL_CREATE_USERS_TABLE);
-        setDummiCredentials(db);
+//        setDummiCredentials(db);
     }
 
     @Override
@@ -71,6 +72,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String sql= "SELECT * FROM " + userContract.UserEntry.TABLE_NAME + " WHERE " + userContract.UserEntry.USERS_USERNAME + " = 'ssital'";
         Cursor cursor = db.rawQuery(sql,null);
         if ( cursor!= null) {
+            cursor.close();
             return;
         }
         //Set default username and password
@@ -78,6 +80,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(userContract.UserEntry.USERS_USERNAME, "ssital");
         contentValues.put(userContract.UserEntry.USERS_PASSWORD, "qwerty");
         db.insert(userContract.UserEntry.TABLE_NAME, null, contentValues);
+
+    }
+
+    public void loginUser(){
+        SQLiteDatabase db = getReadableDatabase();
+        String sql= "SELECT * FROM " + userContract.UserEntry.TABLE_NAME + " WHERE " + userContract.UserEntry.USERS_USERNAME + " = 'ssital'";
+        Cursor cursor = db.rawQuery(sql,null);
+        if ( cursor!= null) {
+            cursor.close();
+            Log.d("db", "loginUser: "+ cursor.getCount());
+        }
     }
 
 }

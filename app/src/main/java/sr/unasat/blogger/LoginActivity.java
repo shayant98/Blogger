@@ -1,9 +1,11 @@
 package sr.unasat.blogger;
 
 import androidx.appcompat.app.AppCompatActivity;
+import sr.unasat.blogger.database.DatabaseHelper;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Pair;
@@ -25,6 +27,8 @@ public class LoginActivity extends AppCompatActivity {
     TextInputEditText studentenNummer, passwordInput;
     TextInputLayout studentNrLayout, passwordLayout;
     ProgressBar progressBar;
+    DatabaseHelper databaseHelper;
+    SQLiteDatabase db;
 
 
     @Override
@@ -55,13 +59,14 @@ public class LoginActivity extends AppCompatActivity {
                 goToRegister();
             }
         });
-
         logIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 LoginUser();
             }
         });
+
+         databaseHelper = new DatabaseHelper(getApplicationContext());
 
 
     }
@@ -70,6 +75,7 @@ public class LoginActivity extends AppCompatActivity {
     private void LoginUser(){
         validateStudentNr();
         validatePassword();
+
 
 
 //        TODO: Check user Data in db
