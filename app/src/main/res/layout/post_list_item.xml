@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <com.google.android.material.card.MaterialCardView
         style="@style/Widget.MaterialComponents.CardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorPrimary"
         android:layout_marginLeft="@dimen/mtrl_card_spacing"
         android:layout_marginTop="@dimen/mtrl_card_spacing"
         android:layout_marginRight="@dimen/mtrl_card_spacing"
+        app:cardElevation="8dp"
+        app:cardCornerRadius="8dp"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
         android:minHeight="100dp"
         >
 
@@ -19,9 +26,10 @@
            android:orientation="vertical">
 
            <TextView
+               android:textColor="@color/black"
+               android:id="@+id/post_title"
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
-               android:text="POST TITLE"
                android:layout_marginStart="10dp"
                android:fontFamily="@font/bungee"
                android:textSize="18sp"/>
@@ -50,11 +58,12 @@
                    android:layout_weight="0.95">
 
                    <TextView
+                       android:textColor="@color/black"
+                       android:id="@+id/post_body"
                        android:paddingEnd="10sp"
                        android:paddingStart="10dp"
                        android:layout_width="match_parent"
                        android:layout_height="60dp"
-                       android:text="@string/dummy_text"
                        android:fontFamily="@font/antic"
                        android:textSize="12sp"/>
                </LinearLayout>
@@ -66,7 +75,8 @@
                android:orientation="horizontal"
                android:paddingStart="10dp"
                android:paddingEnd="10dp"
-               android:paddingBottom="5dp">
+               android:paddingBottom="5dp"
+               android:baselineAligned="false">
 
                <LinearLayout
                    android:layout_width="wrap_content"
@@ -74,9 +84,9 @@
                    android:layout_weight="0.9">
 
                    <TextView
+                       android:id="@+id/post_author"
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content"
-                       android:text="Schrijver"
                        android:fontFamily="@font/antic"
                        android:textColor="#000"
                        android:textSize="12sp"
@@ -90,11 +100,11 @@
                    android:layout_weight="0.1">
 
                    <TextView
+                       android:id="@+id/post_date"
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content"
-                       android:text="12/12/2019"
                        android:fontFamily="@font/antic"
-                       android:textColor="#000"
+                       android:textColor="@color/black"
                        android:textSize="12sp"/>
                </LinearLayout>
 
@@ -110,31 +120,16 @@
            <LinearLayout
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
-               android:orientation="horizontal"
-               android:padding="10dp">
-
-               <LinearLayout
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:layout_weight="0.5">
+               android:gravity="end"
+               android:orientation="horizontal">
 
 
-
-               </LinearLayout>
-
-               <LinearLayout
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:layout_weight="0.5"
-                   >
-
-                   <ImageView
-                       android:layout_width="30sp"
-                       android:layout_height="30sp"
-                       android:src="@drawable/share_icon"
-                       android:layout_gravity="end"/>
-               </LinearLayout>
-
+               <ImageButton
+                   android:layout_width="50sp"
+                   android:layout_height="match_parent"
+                   android:src="@drawable/share_icon"
+                   style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                   android:contentDescription="@string/postimage" />
            </LinearLayout>
 
        </LinearLayout>
