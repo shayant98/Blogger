@@ -37,20 +37,12 @@
 <!--            android:layout_below="@+id/accountTitle"-->
 <!--            android:background="#fece2f" />-->
 
-        <ProgressBar
-            android:id="@+id/postProgress"
-            style="@android:style/Widget.Material.Light.ProgressBar.Large"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/postFeed"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/feedTitle"
-            android:visibility="gone"
+            android:visibility="visible"
             tools:visibility="visible">
 
         </androidx.recyclerview.widget.RecyclerView>

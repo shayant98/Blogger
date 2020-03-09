@@ -115,6 +115,7 @@ public class LoginActivity extends AppCompatActivity {
 
 //                REDIRECT TO FEED CODE ()
                     Intent intent = new Intent(LoginActivity.this, NavigationActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                     startActivity(intent);
                     finish();
                 }

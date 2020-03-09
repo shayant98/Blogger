@@ -45,10 +45,7 @@ public class UpdateUserActivity extends AppCompatActivity {
     }
 
     private void goToAccount() {
-        Intent intent = new Intent(this, NavigationActivity.class);
-        intent.putExtra("fragmentLoader",1);
-        startActivity(intent);
-        finish();
+        goToPreviousActivity();
     }
 
     private void updateUser(){
@@ -81,10 +78,15 @@ public class UpdateUserActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             Toast.makeText(UpdateUserActivity.this, s, Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(UpdateUserActivity.this, NavigationActivity.class);
-            intent.putExtra("fragmentLoader", 1);
-            startActivity(intent);
-            finish();
+            goToPreviousActivity();
         }
+    }
+
+    void goToPreviousActivity(){
+        Intent intent = new Intent(this, NavigationActivity.class);
+        intent.putExtra("fragmentLoader",1);
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivity(intent);
+        finish();
     }
 }

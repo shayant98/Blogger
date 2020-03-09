@@ -1,6 +1,7 @@
 package sr.unasat.blogger;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.Toolbar;
@@ -22,7 +23,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.ethanhua.skeleton.Skeleton;
+import com.ethanhua.skeleton.SkeletonScreen;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,12 +33,12 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 
-public class FeedFragment extends Fragment {
+public class FeedFragment extends Fragment implements PostAdapter.onItemClickInterface {
     private RequestQueue queue;
     private RecyclerView recyclerView;
     private ArrayList<Post> postArrayList = new ArrayList<Post>();
-    private ProgressBar postProgress;
-
+    SkeletonScreen skeletonScreen;
+    PostAdapter postAdapter;
     public FeedFragment() {
         // Required empty public constructor
 
@@ -53,11 +55,13 @@ public class FeedFragment extends Fragment {
 
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
         recyclerView = view.findViewById(R.id.postFeed);
-        postProgress = view.findViewById(R.id.postProgress);
 
         toolbar.setBackgroundColor(getResources().getColor(R.color.textColorDark));
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+         postAdapter = new PostAdapter(postArrayList, getContext());
+         skeletonScreen = Skeleton.bind(recyclerView).adapter(postAdapter).load(R.layout.post_list_item_skeleton).show();
 
 
         getPosts();
@@ -65,7 +69,6 @@ public class FeedFragment extends Fragment {
         return view;
     }
 
-//    TODO: Request to REST Service
 private void getPosts(){
     final String URL = "http://rest.wayangrentalservices.com/wp-json/wp/v2/posts/";
     JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, URL, null, new Response.Listener<JSONArray>() {
@@ -83,13 +86,11 @@ private void getPosts(){
                     );
 
                     postArrayList.add(post);
-                    Log.i("debug", "onResponse: "+ post.toString());
                 }
 
-                PostAdapter postAdapter = new PostAdapter(postArrayList, getContext());
-                recyclerView.setAdapter(postAdapter);
-                recyclerView.setVisibility(View.VISIBLE);
-                postProgress.setVisibility(View.GONE);
+                initAdapter();
+                toggleRecyclerview();
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -108,5 +109,32 @@ private void getPosts(){
     queue.add(request);
 }
 
-//    TODO: Setup Adapter for recyclerview with data from REST call
+
+
+    @Override
+    public void onItemClick(int position) {
+        Post currentPost = postArrayList.get(position);
+        Log.d("123", "onItemClick: "+ currentPost);
+
+        Intent intent = new Intent(getActivity(), DetailActivity.class);
+        intent.putExtra("PostTitle", currentPost.getTitle());
+        intent.putExtra("PostId", currentPost.getId());
+        startActivity(intent);
+
+    }
+
+
+    private void initAdapter(){
+        postAdapter.setOnItemClickListener(FeedFragment.this);
+        recyclerView.setAdapter(postAdapter);
+
+    }
+
+    private void toggleRecyclerview() {
+        skeletonScreen.hide();
+        recyclerView.setVisibility(View.VISIBLE);
+
+
+    }
+
 }
