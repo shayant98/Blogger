@@ -129,6 +129,7 @@
 
 
                <ImageButton
+                   android:id="@+id/shareBtn"
                    android:layout_width="50sp"
                    android:layout_height="match_parent"
                    android:src="@drawable/share_icon"

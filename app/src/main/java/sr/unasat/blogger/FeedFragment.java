@@ -123,6 +123,22 @@ private void getPosts(){
 
     }
 
+    @Override
+    public void onItemShare(int position) {
+        Post currentPost = postArrayList.get(position);
+        String message = "Check de laatste UNASAT POST: " + currentPost.getTitle();
+
+        Intent intent = new Intent();
+
+        intent.setAction(Intent.ACTION_SEND);
+
+        intent.putExtra(Intent.EXTRA_TEXT, message);
+        intent.setType("text/plain");
+
+        Intent shareIntent = Intent.createChooser(intent,null);
+        startActivity(shareIntent);
+    }
+
 
     private void initAdapter(){
         postAdapter.setOnItemClickListener(FeedFragment.this);
@@ -135,6 +151,20 @@ private void getPosts(){
         recyclerView.setVisibility(View.VISIBLE);
 
 
+    }
+
+    public void shareItem(String selectedItems){
+        String message = "My fav food are: " + selectedItems;
+
+        Intent intent = new Intent();
+
+        intent.setAction(Intent.ACTION_SEND);
+
+        intent.putExtra(Intent.EXTRA_TEXT, message);
+        intent.setType("text/plain");
+
+        Intent shareIntent = Intent.createChooser(intent,null);
+        startActivity(shareIntent);
     }
 
 }
