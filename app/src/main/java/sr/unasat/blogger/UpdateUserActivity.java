@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
+
 public class UpdateUserActivity extends AppCompatActivity {
 
     Toolbar toolbar;
@@ -77,7 +79,6 @@ public class UpdateUserActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String s) {
-            Toast.makeText(UpdateUserActivity.this, s, Toast.LENGTH_SHORT).show();
             goToPreviousActivity();
         }
     }

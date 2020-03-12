@@ -13,62 +13,44 @@
         android:orientation="vertical">
 
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:background="#fece2f"
+            android:padding="10dp">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:background="#fece2f"
-        android:padding="10dp">
+            <ImageView
+                android:id="@+id/profileImage"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/user_icon" />
 
-        <TextView
-            android:id="@+id/accountTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/bungee"
-            android:text="@string/nav_title_account"
-            android:textColor="#000"
-            android:textSize="30sp"
-            />
+            <TextView
+                android:id="@+id/FullName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/profileImage"
+                android:fontFamily="@font/bungee"
+                android:includeFontPadding="false"
+                android:text="Shayant Sital"
+                android:textColor="#000"
+                android:textSize="20dp" />
 
-<!--        <View-->
-<!--            android:id="@+id/divider2"-->
-<!--            android:layout_width="100dp"-->
-<!--            android:layout_height="4dp"-->
-<!--            android:background="#FFF"-->
-<!--            android:layout_below="@+id/accountTitle"/>-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/FullName"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/profileImage"
+                android:includeFontPadding="false"
+                android:text="SE/1118/21"
+                android:textSize="14sp" />
 
-        <ImageView
-            android:id="@+id/profileImage"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_centerVertical="true"
-            android:src="@drawable/user_icon" />
-
-        <TextView
-            android:id="@+id/FullName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@id/profileImage"
-            android:fontFamily="@font/bungee"
-            android:includeFontPadding="false"
-            android:text="Shayant Sital"
-            android:textColor="#000"
-            android:textSize="20dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/FullName"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@id/profileImage"
-            android:includeFontPadding="false"
-            android:text="SE/1118/21"
-            android:textSize="14sp" />
-
-    </RelativeLayout>
+        </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

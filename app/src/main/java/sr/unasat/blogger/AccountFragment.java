@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
@@ -23,10 +24,10 @@ import com.google.android.material.textfield.TextInputLayout;
 
 public class AccountFragment extends Fragment {
 
-    Toolbar toolbar;
-    Button updateBtn, deleteBtn;
-    TextInputEditText dialogPassword;
-    TextInputLayout dialogPasswordLayout;
+    private Toolbar toolbar;
+    private Button updateBtn, deleteBtn;
+    private TextInputEditText dialogPassword;
+    private TextInputLayout dialogPasswordLayout;
 
 
     public AccountFragment() {
@@ -38,10 +39,11 @@ public class AccountFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         toolbar = getActivity().findViewById(R.id.toolbar);
+        TextView fragmentTitle = getActivity().findViewById(R.id.fragmentTitle);
 
+        fragmentTitle.setText(getResources().getString(R.string.nav_title_account));
         toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         return inflater.inflate(R.layout.fragment_account, container, false);
-//    TODO: Fill fields with actual user data
 
 
     }

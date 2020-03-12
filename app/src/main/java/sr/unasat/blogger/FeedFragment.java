@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -39,6 +40,8 @@ public class FeedFragment extends Fragment implements PostAdapter.onItemClickInt
     private ArrayList<Post> postArrayList = new ArrayList<Post>();
     SkeletonScreen skeletonScreen;
     PostAdapter postAdapter;
+    TextView fragmentTitle;
+
     public FeedFragment() {
         // Required empty public constructor
 
@@ -54,8 +57,10 @@ public class FeedFragment extends Fragment implements PostAdapter.onItemClickInt
         queue = Volley.newRequestQueue(getActivity());
 
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+        fragmentTitle = getActivity().findViewById(R.id.fragmentTitle);
         recyclerView = view.findViewById(R.id.postFeed);
 
+        fragmentTitle.setText(getResources().getString(R.string.nav_title_home));
         toolbar.setBackgroundColor(getResources().getColor(R.color.textColorDark));
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

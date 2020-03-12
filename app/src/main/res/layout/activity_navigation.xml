@@ -5,20 +5,16 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NavigationActivity"
     android:fitsSystemWindows="true"
-    tools:openDrawer="start"
-    >
+    tools:context=".NavigationActivity">
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        app:headerLayout="@layout/header_menu"
-        app:menu="@menu/main_menu"
         android:layout_gravity="start"
-        />
-
+        app:headerLayout="@layout/header_menu"
+        app:menu="@menu/main_menu" />
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,6 +25,7 @@
             android:id="@+id/toolbarlayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -36,27 +33,31 @@
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
                 app:contentScrim="?attr/colorPrimary"
-                >
+                app:expandedTitleMarginEnd="64dp"
+                app:expandedTitleMarginStart="48dp"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     android:background="@color/transparent"
-                    android:theme="?attr/actionBarTheme"
-                    app:layout_scrollFlags="scroll|enterAlways|snap"
-                    app:navigationIcon="@drawable/menu_icon" >
+                    android:theme="@style/toolbarTheme"
+                    app:layout_scrollFlags="scroll|enterAlways"
+                    app:navigationIcon="@drawable/menu_icon">
 
                     <TextView
-                        android:id="@+id/nav_title"
-                        android:text="@string/app_name"
+                        android:id="@+id/fragmentTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/black"
-                        android:textSize="30dp"
-                        android:fontFamily="@font/antic"
-                        />
+                        >
+
+                    </TextView>
+
                 </androidx.appcompat.widget.Toolbar>
             </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
@@ -65,6 +66,7 @@
             android:id="@+id/fragmentContainer"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
