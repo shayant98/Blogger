@@ -23,7 +23,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public DatabaseHelper(@Nullable Context context) {
         super(context, DB_NAME, null, DB_VERSION);
-
+        setDummiCredentials();
     }
 
     @Override
@@ -57,7 +57,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db.execSQL(SQL_CREATE_STUDENTS_TABLE);
         db.execSQL(SQL_CREATE_USERS_TABLE);
-//        setDummiCredentials(db);
     }
 
     @Override
@@ -66,20 +65,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + userContract.UserEntry.TABLE_NAME);
     }
 
-    private void setDummiCredentials(SQLiteDatabase db) {
+    private void setDummiCredentials() {
+        SQLiteDatabase db = getWritableDatabase();
 //        Cursor cursor = db.query(userContract.UserEntry.TABLE_NAME, null,userContract.UserEntry.USERS_USERNAME,new String[]{"username"},null,null,null);
-//        Ik weet niet als dit werkt ^
         String sql= "SELECT * FROM " + userContract.UserEntry.TABLE_NAME + " WHERE " + userContract.UserEntry.USERS_USERNAME + " = 'ssital'";
         Cursor cursor = db.rawQuery(sql,null);
         if ( cursor!= null) {
             cursor.close();
             return;
         }
+        ContentValues cvStudent = new ContentValues();
+        cvStudent.put(studentContract.StudentEntry.STUDENTS_FIRST_NAME, "Shayant");
+        cvStudent.put(studentContract.StudentEntry.STUDENTS_NAME, "Sital");
+        cvStudent.put(studentContract.StudentEntry.STUDENTS_BIRTHDATE, "01-01-'98");
+        cvStudent.put(studentContract.StudentEntry.STUDENTS_ADRESS, "Leysweg 68");
+        cvStudent.put(studentContract.StudentEntry.STUDENTS_DISTRICT, "Paramaribo");
+        cvStudent.put(studentContract.StudentEntry.STUDENTS_STUDENT_NUMBER, "SE/1118/009");
+        cvStudent.put(studentContract.StudentEntry.STUDENTS_PHONE_NUMBER, "1234567");
+        cvStudent.put(studentContract.StudentEntry.STUDENTS_EMAIL, "s.admin@unasat.sr");
+        db.insert(studentContract.StudentEntry.TABLE_NAME, null, cvStudent);
+
         //Set default username and password
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(userContract.UserEntry.USERS_USERNAME, "ssital");
-        contentValues.put(userContract.UserEntry.USERS_PASSWORD, "qwerty");
-        db.insert(userContract.UserEntry.TABLE_NAME, null, contentValues);
+        ContentValues cvUser = new ContentValues();
+        cvUser.put(userContract.UserEntry.USERS_STUDENTS_ID, "1");
+        cvUser.put(userContract.UserEntry.USERS_USERNAME, "ssital");
+        cvUser.put(userContract.UserEntry.USERS_EMAIL, "s.sital@unasat.sr");
+        cvUser.put(userContract.UserEntry.USERS_ROLE, "admin");
+        cvUser.put(userContract.UserEntry.USERS_PASSWORD, "qwerty");
+        db.insert(userContract.UserEntry.TABLE_NAME, null, cvUser);
 
     }
 

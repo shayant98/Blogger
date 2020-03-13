@@ -14,6 +14,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import sr.unasat.blogger.database.DatabaseHelper;
+
 public class MainActivity extends AppCompatActivity {
 
     private static int SPLASH_SCREEN_DURATION = 2000;
@@ -22,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     Animation topAnimation, bottemAnimation;
     ImageView logo;
     TextView name, slogan;
+    DatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,11 +33,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         //loadAnimtions
         topAnimation = AnimationUtils.loadAnimation(this, R.anim.splash_top_animation);
         bottemAnimation = AnimationUtils.loadAnimation(this, R.anim.splash_bottom_animation);
-
 
         //get fields
         logo = findViewById(R.id.logo);
@@ -59,8 +60,9 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent, options.toBundle());
                 finish(); //zodat de gebruiker niet terug kan gaan (verwijderd het van de act list)
 
-
             }
         }, SPLASH_SCREEN_DURATION);
+
+        databaseHelper = new DatabaseHelper(this);
     }
 }
