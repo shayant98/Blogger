@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 import sr.unasat.blogger.Entity.User;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
+    private static final String TAG = "DatabaseHelper";
     public static String DB_NAME = "blogger.db";
     public static int DB_VERSION = 1;
 
@@ -57,6 +58,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db.execSQL(SQL_CREATE_STUDENTS_TABLE);
         db.execSQL(SQL_CREATE_USERS_TABLE);
+
+
+
     }
 
     @Override
@@ -68,42 +72,51 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private void setDummiCredentials() {
         SQLiteDatabase db = getWritableDatabase();
 //        Cursor cursor = db.query(userContract.UserEntry.TABLE_NAME, null,userContract.UserEntry.USERS_USERNAME,new String[]{"username"},null,null,null);
-        String sql= "SELECT * FROM " + userContract.UserEntry.TABLE_NAME + " WHERE " + userContract.UserEntry.USERS_USERNAME + " = 'ssital'";
+        String sql= "SELECT * FROM " + userContract.UserEntry.TABLE_NAME + " WHERE " + userContract.UserEntry.USERS_USERNAME + " = 'SE/1118/021'";
         Cursor cursor = db.rawQuery(sql,null);
-        if ( cursor!= null) {
+        if ( cursor.getCount() != 0) {
             cursor.close();
             return;
         }
+
         ContentValues cvStudent = new ContentValues();
         cvStudent.put(studentContract.StudentEntry.STUDENTS_FIRST_NAME, "Shayant");
         cvStudent.put(studentContract.StudentEntry.STUDENTS_NAME, "Sital");
-        cvStudent.put(studentContract.StudentEntry.STUDENTS_BIRTHDATE, "01-01-'98");
-        cvStudent.put(studentContract.StudentEntry.STUDENTS_ADRESS, "Leysweg 68");
-        cvStudent.put(studentContract.StudentEntry.STUDENTS_DISTRICT, "Paramaribo");
-        cvStudent.put(studentContract.StudentEntry.STUDENTS_STUDENT_NUMBER, "SE/1118/009");
-        cvStudent.put(studentContract.StudentEntry.STUDENTS_PHONE_NUMBER, "1234567");
-        cvStudent.put(studentContract.StudentEntry.STUDENTS_EMAIL, "s.admin@unasat.sr");
-        db.insert(studentContract.StudentEntry.TABLE_NAME, null, cvStudent);
+        cvStudent.put(studentContract.StudentEntry.STUDENTS_BIRTHDATE, "01-08-98");
+        cvStudent.put(studentContract.StudentEntry.STUDENTS_ADRESS, "Kwattaweg 685");
+        cvStudent.put(studentContract.StudentEntry.STUDENTS_DISTRICT, "Wanica");
+        cvStudent.put(studentContract.StudentEntry.STUDENTS_STUDENT_NUMBER, "SE/1118/021");
+        cvStudent.put(studentContract.StudentEntry.STUDENTS_PHONE_NUMBER, "8789731");
+        cvStudent.put(studentContract.StudentEntry.STUDENTS_EMAIL, "sh.sital@unasat.sr");
+        long StudentId = db.insert(studentContract.StudentEntry.TABLE_NAME, null, cvStudent);
+
 
         //Set default username and password
         ContentValues cvUser = new ContentValues();
-        cvUser.put(userContract.UserEntry.USERS_STUDENTS_ID, "1");
-        cvUser.put(userContract.UserEntry.USERS_USERNAME, "ssital");
-        cvUser.put(userContract.UserEntry.USERS_EMAIL, "s.sital@unasat.sr");
-        cvUser.put(userContract.UserEntry.USERS_ROLE, "admin");
-        cvUser.put(userContract.UserEntry.USERS_PASSWORD, "qwerty");
+        cvUser.put(userContract.UserEntry.USERS_STUDENTS_ID, StudentId);
+        cvUser.put(userContract.UserEntry.USERS_USERNAME, "SE/1118/021");
+        cvUser.put(userContract.UserEntry.USERS_EMAIL, "sh.sital@unasat.sr");
+        cvUser.put(userContract.UserEntry.USERS_ROLE, "student");
+        cvUser.put(userContract.UserEntry.USERS_PASSWORD, "123456");
         db.insert(userContract.UserEntry.TABLE_NAME, null, cvUser);
 
+        Log.i(TAG, "Dummy user inserted" );
+
     }
 
-    public void loginUser(){
+    public boolean logInUser(String username, String password){
         SQLiteDatabase db = getReadableDatabase();
-        String sql= "SELECT * FROM " + userContract.UserEntry.TABLE_NAME + " WHERE " + userContract.UserEntry.USERS_USERNAME + " = 'ssital'";
-        Cursor cursor = db.rawQuery(sql,null);
-        if ( cursor!= null) {
-            cursor.close();
-            Log.d("db", "loginUser: "+ cursor.getCount());
+
+        Cursor cursor = db.rawQuery("SELECT * FROM users WHERE username = ? AND password = ?", new String[]{username, password});
+
+        if (cursor.getCount() == 0){
+            return false;
+        }else{
+            Log.d(TAG, "logInUser: "+ cursor.moveToFirst());
+            return true;
         }
     }
+
+
 
 }

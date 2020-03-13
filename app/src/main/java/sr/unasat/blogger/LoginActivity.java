@@ -28,7 +28,7 @@ public class LoginActivity extends AppCompatActivity {
     TextInputLayout studentNrLayout, passwordLayout;
     ProgressBar progressBar;
     DatabaseHelper databaseHelper;
-    SQLiteDatabase db;
+
 
 
     @Override
@@ -52,6 +52,8 @@ public class LoginActivity extends AppCompatActivity {
         studentNrLayout = findViewById(R.id.studentNrLayout);
         passwordLayout = findViewById(R.id.passwordLayout);
 
+        databaseHelper = new DatabaseHelper(this);
+
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,28 +64,37 @@ public class LoginActivity extends AppCompatActivity {
         logIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LoginUser();
+                LoginUser(studentenNummer.getText().toString(), passwordInput.getText().toString());
             }
         });
 
-         databaseHelper = new DatabaseHelper(getApplicationContext());
 
 
     }
 
 
-    private void LoginUser(){
+    private void LoginUser(String username, String password){
         validateStudentNr();
         validatePassword();
 
 
 
-//        TODO: Check user Data in db
         if (validateStudentNr() && validatePassword()){
-            logIn.setVisibility(View.GONE);
-            progressBar.setVisibility(View.VISIBLE);
-            goToFeed();
+
+            boolean userExists = databaseHelper.logInUser(username,password);
+            toggleLoader();
+            if (userExists){
+                goToFeed();
+            }else{
+                toggleLoader();
+                studentNrLayout.setError("Invalid login");
+            }
         }
+    }
+
+    private void toggleLoader() {
+        logIn.setVisibility((logIn.getVisibility() == View.VISIBLE) ? View.GONE : View.VISIBLE);
+        progressBar.setVisibility((progressBar.getVisibility() == View.VISIBLE) ? View.GONE : View.VISIBLE);
     }
 
     private void goToRegister() {
@@ -105,25 +116,10 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void goToFeed(){
-
-
-
-            // DELAY ALEEN VOOR TEST!!!!!!!!!! MOET  WEG
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                public void run() {
-
-//                REDIRECT TO FEED CODE ()
-                    Intent intent = new Intent(LoginActivity.this, NavigationActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                    startActivity(intent);
-                    finish();
-                }
-            }, 3000);   //3 seconds
-
-
-
-
+        Intent intent = new Intent(LoginActivity.this, NavigationActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivity(intent);
+        finish();
     }
 
 

@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         logo.setAnimation(topAnimation);
         name.setAnimation(bottemAnimation);
         slogan.setAnimation(bottemAnimation);
+        databaseHelper = new DatabaseHelper(this);
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -63,6 +64,5 @@ public class MainActivity extends AppCompatActivity {
             }
         }, SPLASH_SCREEN_DURATION);
 
-        databaseHelper = new DatabaseHelper(this);
     }
 }
