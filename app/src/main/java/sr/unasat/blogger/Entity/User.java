@@ -1,6 +1,9 @@
 package sr.unasat.blogger.Entity;
 
-public class User {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class User implements Parcelable {
 
     private int id;
     private String email;
@@ -25,6 +28,31 @@ public class User {
         this.district = district;
         this.phoneNumber = phoneNumber;
     }
+
+    protected User(Parcel in) {
+        id = in.readInt();
+        email = in.readString();
+        username = in.readString();
+        role = in.readString();
+        name = in.readString();
+        firstName = in.readString();
+        birthday = in.readString();
+        adress = in.readString();
+        district = in.readString();
+        phoneNumber = in.readString();
+    }
+
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -121,5 +149,24 @@ public class User {
                 ", district='" + district + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(email);
+        dest.writeString(username);
+        dest.writeString(role);
+        dest.writeString(name);
+        dest.writeString(firstName);
+        dest.writeString(birthday);
+        dest.writeString(adress);
+        dest.writeString(district);
+        dest.writeString(phoneNumber);
     }
 }

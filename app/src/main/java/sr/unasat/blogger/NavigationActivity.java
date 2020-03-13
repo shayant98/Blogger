@@ -9,13 +9,16 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import sr.unasat.blogger.Entity.User;
 import sr.unasat.blogger.database.DatabaseHelper;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationView;
@@ -27,8 +30,8 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     NavigationView navigationView;
     Toolbar toolbar;
     DatabaseHelper databaseHelper;
-
-//    TODO: Fill Header with actual logged in user data
+    TextView headerUserName, headerStudNr;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,14 +48,18 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
 
         setSupportActionBar(toolbar);
 
-        navigationView.bringToFront();
-        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,R.string.nav_drawer_open, R.string.nav_drawer_close);
-        drawerLayout.addDrawerListener(drawerToggle);
-        drawerToggle.syncState();
+        initNavigation();
 
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.menu_icon );
+        View headerView = navigationView.getHeaderView(0);
 
-        navigationView.setNavigationItemSelectedListener(this);
+        Intent intent = getIntent();
+         user = intent.getParcelableExtra("loggedInUser");
+
+        headerStudNr = headerView.findViewById(R.id.headerStudNr);
+        headerUserName = headerView.findViewById(R.id.headerUsername);
+
+        headerUserName.setText(String.format("%s %s", user.getFirstName(), user.getName()));
+        headerStudNr.setText(user.getUsername());
 
         int fragment = getIntent().getIntExtra("fragmentLoader",0);
 
@@ -66,6 +73,17 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
             loadFragment(new AccountFragment());
         }
 
+    }
+
+    private void initNavigation() {
+        navigationView.bringToFront();
+        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,R.string.nav_drawer_open, R.string.nav_drawer_close);
+        drawerLayout.addDrawerListener(drawerToggle);
+        drawerToggle.syncState();
+
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.menu_icon );
+
+        navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
@@ -106,12 +124,12 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
 
     private void showLogoutMessage(){
         new MaterialAlertDialogBuilder(this)
-                .setTitle("Bent u zeker?")
+                .setTitle(String.format("Ben je zeker %s", user.getFirstName()))
                 .setMessage("Als u uitlogt, zult u de laatste berichten niet kunnen volgen")
                 .setPositiveButton("Uitloggen", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        logOut(1);
+                        logOut(user.getId());
                     }
                 })
                 .setNegativeButton("Blijven", new DialogInterface.OnClickListener() {

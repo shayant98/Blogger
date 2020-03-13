@@ -20,19 +20,19 @@
             android:padding="10dp">
 
             <ImageView
-                android:id="@+id/profileImage"
+                android:id="@+id/accountImage"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_centerVertical="true"
                 android:src="@drawable/user_icon" />
 
             <TextView
-                android:id="@+id/FullName"
+                android:id="@+id/AccountName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@id/profileImage"
+                android:layout_toRightOf="@id/accountImage"
                 android:fontFamily="@font/bungee"
                 android:includeFontPadding="false"
                 android:text="Shayant Sital"
@@ -40,14 +40,14 @@
                 android:textSize="20dp" />
 
             <TextView
+                android:id="@+id/accountStudNr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/FullName"
+                android:layout_below="@id/AccountName"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@id/profileImage"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/accountImage"
                 android:includeFontPadding="false"
-                android:text="SE/1118/21"
                 android:textSize="14sp" />
 
         </RelativeLayout>
@@ -147,10 +147,10 @@
             android:layout_marginBottom="10dp">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/accountEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Shayant Sital"
-                android:drawableLeft="@drawable/face_icon"
+                android:drawableStart="@drawable/face_icon"
                 android:drawablePadding="10dp"
                 android:enabled="false"
                 >
@@ -166,9 +166,9 @@
             android:layout_marginBottom="10dp">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/accountAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Kwattaweg 685"
                 android:drawableStart="@drawable/location_icon"
                 android:drawablePadding="10dp"
                 android:enabled="false"
@@ -185,12 +185,12 @@
             android:layout_marginBottom="10dp">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/accountPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="PasswordBOIBOI"
-                android:drawableLeft="@drawable/lock_icon"
+                android:drawableStart="@drawable/phone_icon"
                 android:drawablePadding="10dp"
-                android:inputType="textPassword"
+                android:inputType="phone"
                 android:enabled="false"
                 >
 

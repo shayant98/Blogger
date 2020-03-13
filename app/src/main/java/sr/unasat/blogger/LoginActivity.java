@@ -85,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
             User userExists = databaseHelper.logInUser(username,password);
             toggleLoader();
             if (userExists != null){
-                goToFeed();
+                goToFeed(userExists);
             }else{
                 toggleLoader();
                 studentNrLayout.setError("Invalid login");
@@ -116,8 +116,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    private void goToFeed(){
+    private void goToFeed(User loggedInUser){
         Intent intent = new Intent(LoginActivity.this, NavigationActivity.class);
+        intent.putExtra("loggedInUser", loggedInUser);
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
         finish();

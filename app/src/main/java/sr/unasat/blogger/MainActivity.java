@@ -50,13 +50,14 @@ public class MainActivity extends AppCompatActivity {
         name.setAnimation(bottemAnimation);
         slogan.setAnimation(bottemAnimation);
         databaseHelper = new DatabaseHelper(this);
+        Log.d(TAG, "onCreate: " + databaseHelper.getLoggedInUser());
 
-         final User loggedInUser = databaseHelper.getLoggedInUser();
+        final User loggedInUser = databaseHelper.getLoggedInUser();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                  if (loggedInUser != null){
-                     goToFeed();
+                     goToFeed(loggedInUser);
                  }else{
                      goToLogin();
                  }
@@ -78,8 +79,9 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
-    private void goToFeed(){
+    private void goToFeed(User loggedInUser){
         Intent intent = new Intent(MainActivity.this, NavigationActivity.class);
+        intent.putExtra("loggedInUser", loggedInUser);
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
         finish();

@@ -17,6 +17,7 @@ import java.util.Arrays;
 
 import androidx.annotation.Nullable;
 
+import sr.unasat.blogger.Entity.Student;
 import sr.unasat.blogger.Entity.User;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -43,8 +44,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 userContract.UserEntry.USERS_DATE_CREATED + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP," +
                 userContract.UserEntry.USERS_DATE_UPDATED + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP," +
                 " FOREIGN KEY(" + userContract.UserEntry.USERS_STUDENTS_ID + ") REFERENCES " +
-                studentContract.StudentEntry.STUDENTS_ADRESS + "(" + studentContract.StudentEntry.STUDENTS_ID + "));"
-        ;
+                studentContract.StudentEntry.STUDENTS_ADRESS + "(" + studentContract.StudentEntry.STUDENTS_ID + "));";
 
         final String SQL_CREATE_STUDENTS_TABLE = " CREATE TABLE " + studentContract.StudentEntry.TABLE_NAME + " (" +
                 studentContract.StudentEntry.STUDENTS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -57,12 +57,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 studentContract.StudentEntry.STUDENTS_PHONE_NUMBER + " TEXT NOT NULL," +
                 studentContract.StudentEntry.STUDENTS_EMAIL + " TEXT NOT NULL," +
                 studentContract.StudentEntry.STUDENTS_DATE_CREATED + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP," +
-                studentContract.StudentEntry.STUDENTS_DATE_UPDATED + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP);"
-        ;
+                studentContract.StudentEntry.STUDENTS_DATE_UPDATED + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP);";
 
         db.execSQL(SQL_CREATE_STUDENTS_TABLE);
         db.execSQL(SQL_CREATE_USERS_TABLE);
-
 
 
     }
@@ -78,9 +76,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private void setDummiCredentials() {
         SQLiteDatabase db = getWritableDatabase();
 //        Cursor cursor = db.query(userContract.UserEntry.TABLE_NAME, null,userContract.UserEntry.USERS_USERNAME,new String[]{"username"},null,null,null);
-        String sql= "SELECT * FROM " + userContract.UserEntry.TABLE_NAME + " WHERE " + userContract.UserEntry.USERS_USERNAME + " = 'SE/1118/021'";
-        Cursor cursor = db.rawQuery(sql,null);
-        if ( cursor.getCount() != 0) {
+        String sql = "SELECT * FROM " + userContract.UserEntry.TABLE_NAME + " WHERE " + userContract.UserEntry.USERS_USERNAME + " = 'SE/1118/021'";
+        Cursor cursor = db.rawQuery(sql, null);
+        if (cursor.getCount() != 0) {
             cursor.close();
             return;
         }
@@ -107,65 +105,97 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cvUser.put(userContract.UserEntry.USERS_PASSWORD, "123456");
         db.insert(userContract.UserEntry.TABLE_NAME, null, cvUser);
 
-        Log.i(TAG, "Dummy user inserted" );
+
+        //dummy students
+        cvStudent.clear();
+        cvStudent.put(studentContract.StudentEntry.STUDENTS_FIRST_NAME, "Jason");
+        cvStudent.put(studentContract.StudentEntry.STUDENTS_NAME, "Kasi");
+        cvStudent.put(studentContract.StudentEntry.STUDENTS_BIRTHDATE, "01-08-98");
+        cvStudent.put(studentContract.StudentEntry.STUDENTS_ADRESS, "Kwattaweg 685");
+        cvStudent.put(studentContract.StudentEntry.STUDENTS_DISTRICT, "Wanica");
+        cvStudent.put(studentContract.StudentEntry.STUDENTS_STUDENT_NUMBER, "SE/1118/022");
+        cvStudent.put(studentContract.StudentEntry.STUDENTS_PHONE_NUMBER, "8789731");
+        cvStudent.put(studentContract.StudentEntry.STUDENTS_EMAIL, "j.k@unasat.sr");
+        db.insert(studentContract.StudentEntry.TABLE_NAME, null, cvStudent);
+        cvStudent.clear();
+        cvStudent.put(studentContract.StudentEntry.STUDENTS_FIRST_NAME, "Zareef");
+        cvStudent.put(studentContract.StudentEntry.STUDENTS_NAME, "Soet");
+        cvStudent.put(studentContract.StudentEntry.STUDENTS_BIRTHDATE, "01-08-98");
+        cvStudent.put(studentContract.StudentEntry.STUDENTS_ADRESS, "Kwattaweg 685");
+        cvStudent.put(studentContract.StudentEntry.STUDENTS_DISTRICT, "Wanica");
+        cvStudent.put(studentContract.StudentEntry.STUDENTS_STUDENT_NUMBER, "SE/1118/023");
+        cvStudent.put(studentContract.StudentEntry.STUDENTS_PHONE_NUMBER, "8789731");
+        cvStudent.put(studentContract.StudentEntry.STUDENTS_EMAIL, "z.s@unasat.sr");
+        db.insert(studentContract.StudentEntry.TABLE_NAME, null, cvStudent);
+
+        Log.d(TAG, "setDummiCredentials: Data inserted");
 
     }
 
-    public User getLoggedInUser(){
+    public User getLoggedInUser() {
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM users WHERE logged_in = ?", new String[] {"1"});
+        Cursor cursor = db.rawQuery("SELECT * FROM users WHERE logged_in = ?", new String[]{"1"});
 
-        if (cursor.getCount() == 0){
+        if (cursor.getCount() == 0) {
             return null;
-        }else{
+        } else {
             cursor.moveToFirst();
             int userId = cursor.getInt(0);
+            Log.d(TAG, "getLoggedInUser: " + userId);
             return getUser(userId);
         }
     }
 
-    public User logInUser(String username, String password){
+    public User logInUser(String username, String password) {
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM users WHERE username = ? AND password = ?", new String[]{username, password});
 
-        if (cursor.getCount() == 0){
+        if (cursor.getCount() == 0) {
             return null;
-        }else{
+        } else {
             cursor.moveToFirst();
 
             ContentValues updateValues = new ContentValues();
             updateValues.put("logged_in", 1);
             int userId = cursor.getInt(0);
+            updateUser(updateValues, userId);
             return getUser(userId);
 
         }
     }
 
-    public boolean logOutUser(int id){
+    public boolean logOutUser(int id) {
         ContentValues contentValues = new ContentValues();
         contentValues.put("logged_in", 0);
         return updateUser(contentValues, id);
     }
 
 
-
-    private Boolean updateUser(ContentValues contentValues, int id){
+    private boolean updateUser(ContentValues contentValues, int id) {
         SQLiteDatabase db = getWritableDatabase();
 
-        int updateQuery = db.update("users", contentValues, "id= ?", new String[] {String.valueOf(id)});
+        int updateQuery = db.update(userContract.UserEntry.TABLE_NAME, contentValues, "id= ?", new String[]{String.valueOf(id)});
 
         return updateQuery > 0;
     }
 
+    public boolean deleteUser(int id, String password) {
+        SQLiteDatabase db = getWritableDatabase();
 
-    public User getUser(int id){
+        int deleteQuery = db.delete(userContract.UserEntry.TABLE_NAME, "id=? and password = ?", new String[]{String.valueOf(id), password});
+
+        return deleteQuery > 0;
+    }
+
+
+    private User getUser(int id) {
         SQLiteDatabase db = getReadableDatabase();
 
-        Cursor cursor = db.rawQuery("SELECT users.id,users.email,username,role,name,first_name,birthdate,adress,district,phone_number FROM users, students WHERE users.student_id = students.id AND users.id = ?", new String[] {String.valueOf(id)});
+        Cursor cursor = db.rawQuery("SELECT users.id,users.email,username,role,name,first_name,birthdate,adress,district,phone_number FROM users, students WHERE users.student_id = students.id AND users.id = ?", new String[]{String.valueOf(id)});
 
-        if (cursor.getCount() == 0){
+        if (cursor.getCount() == 0) {
             return null;
-        }else{
+        } else {
             cursor.moveToFirst();
             return new User(
                     cursor.getInt(0),
@@ -179,7 +209,37 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     cursor.getString(8),
                     cursor.getString(9)
 
-                    );
+            );
         }
     }
+
+    public boolean insertUser(ContentValues contentValues) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        long insertQuery = db.insert(userContract.UserEntry.TABLE_NAME, null, contentValues);
+
+        return insertQuery > 0;
+    }
+
+    public boolean getUserByStudNr(String studentNr){
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM "+ userContract.UserEntry.TABLE_NAME +" WHERE username = ?", new String[]{ studentNr});
+        if (cursor.getCount() == 0){
+            return false;
+        }
+        cursor.moveToFirst();
+        Log.d(TAG, "getUserByStudNr: "+ cursor.getCount());
+        return true;
+    }
+
+    public Student getStudentByStudNr(String studentNr){
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM "+ studentContract.StudentEntry.TABLE_NAME +" WHERE student_number = ?", new String[]{ studentNr});
+        if (cursor.getCount() == 0){
+            return null;
+        }
+        cursor.moveToFirst();
+        return new Student(cursor.getInt(0), cursor.getString(6), cursor.getString(8));
+    }
+
 }

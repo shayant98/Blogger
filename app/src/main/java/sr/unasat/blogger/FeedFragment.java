@@ -87,7 +87,7 @@ private void getPosts(){
                             postObject.getInt("id"),
                             postObject.getJSONObject("title").getString("rendered"),
                             postObject.getString("date"),
-                            postObject.getJSONObject("content").getString("rendered")
+                            postObject.getJSONObject("excerpt").getString("rendered")
                     );
 
                     postArrayList.add(post);
