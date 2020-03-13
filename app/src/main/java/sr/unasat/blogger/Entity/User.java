@@ -2,25 +2,35 @@ package sr.unasat.blogger.Entity;
 
 public class User {
 
-    private String id;
+    private int id;
     private String email;
     private String username;
-    private String password;
     private String role;
+    private String name;
+    private String firstName;
+    private String birthday;
+    private String adress;
+    private String district;
+    private String phoneNumber;
 
-    public User(String id, String email, String username, String password, String role) {
+    public User(int id, String email, String username, String role, String name, String firstName, String birthday, String adress, String district, String phoneNumber) {
         this.id = id;
         this.email = email;
         this.username = username;
-        this.password = password;
         this.role = role;
+        this.name = name;
+        this.firstName = firstName;
+        this.birthday = birthday;
+        this.adress = adress;
+        this.district = district;
+        this.phoneNumber = phoneNumber;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -40,13 +50,6 @@ public class User {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public String getRole() {
         return role;
@@ -56,17 +59,67 @@ public class User {
         this.role = role;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getAdress() {
+        return adress;
+    }
+
+    public void setAdress(String adress) {
+        this.adress = adress;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     @Override
     public String toString() {
         return "User{" +
-                "id='" + id + '\'' +
+                "id=" + id +
                 ", email='" + email + '\'' +
                 ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
                 ", role='" + role + '\'' +
+                ", name='" + name + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", birthday='" + birthday + '\'' +
+                ", adress='" + adress + '\'' +
+                ", district='" + district + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 '}';
     }
-
-
-
 }

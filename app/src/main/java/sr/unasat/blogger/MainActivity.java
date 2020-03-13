@@ -6,6 +6,7 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.view.WindowManager;
@@ -14,10 +15,12 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import sr.unasat.blogger.Entity.User;
 import sr.unasat.blogger.database.DatabaseHelper;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = "Splashscreen";
     private static int SPLASH_SCREEN_DURATION = 2000;
 
     //Animations
@@ -48,21 +51,37 @@ public class MainActivity extends AppCompatActivity {
         slogan.setAnimation(bottemAnimation);
         databaseHelper = new DatabaseHelper(this);
 
+         final User loggedInUser = databaseHelper.getLoggedInUser();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-
-                Pair[] pairs = new Pair[2];
-                pairs[0] = new Pair<View, String>(logo, "logo_transistion");
-                pairs[1] = new Pair<View, String>(name, "name_transition");
-
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this,pairs);
-                startActivity(intent, options.toBundle());
-                finish(); //zodat de gebruiker niet terug kan gaan (verwijderd het van de act list)
+                 if (loggedInUser != null){
+                     goToFeed();
+                 }else{
+                     goToLogin();
+                 }
 
             }
         }, SPLASH_SCREEN_DURATION);
 
+    }
+
+    private void goToLogin(){
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+
+        Pair[] pairs = new Pair[2];
+        pairs[0] = new Pair<View, String>(logo, "logo_transistion");
+        pairs[1] = new Pair<View, String>(name, "name_transition");
+
+        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this,pairs);
+        startActivity(intent, options.toBundle());
+        finish();
+    }
+
+    private void goToFeed(){
+        Intent intent = new Intent(MainActivity.this, NavigationActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivity(intent);
+        finish();
     }
 }

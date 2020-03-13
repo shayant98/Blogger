@@ -14,6 +14,7 @@ public class userContract {
         public static final String USERS_EMAIL = "email";
         public static final String USERS_PASSWORD = "password";
         public static final String USERS_ROLE = "role";
+        public static final String USER_LOGGED_IN = "logged_in";
         public static final String USERS_DATE_CREATED = "date_created";
         public static final String USERS_DATE_UPDATED = "date_updated";
 

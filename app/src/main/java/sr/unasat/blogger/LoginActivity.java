@@ -1,6 +1,7 @@
 package sr.unasat.blogger;
 
 import androidx.appcompat.app.AppCompatActivity;
+import sr.unasat.blogger.Entity.User;
 import sr.unasat.blogger.database.DatabaseHelper;
 
 import android.app.ActivityOptions;
@@ -81,9 +82,9 @@ public class LoginActivity extends AppCompatActivity {
 
         if (validateStudentNr() && validatePassword()){
 
-            boolean userExists = databaseHelper.logInUser(username,password);
+            User userExists = databaseHelper.logInUser(username,password);
             toggleLoader();
-            if (userExists){
+            if (userExists != null){
                 goToFeed();
             }else{
                 toggleLoader();

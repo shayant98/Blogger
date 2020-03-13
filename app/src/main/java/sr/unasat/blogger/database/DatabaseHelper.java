@@ -13,6 +13,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 
+import java.util.Arrays;
+
 import androidx.annotation.Nullable;
 
 import sr.unasat.blogger.Entity.User;
@@ -25,6 +27,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public DatabaseHelper(@Nullable Context context) {
         super(context, DB_NAME, null, DB_VERSION);
         setDummiCredentials();
+
     }
 
     @Override
@@ -36,6 +39,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 userContract.UserEntry.USERS_EMAIL + " TEXT NOT NULL UNIQUE," +
                 userContract.UserEntry.USERS_PASSWORD + " TEXT NOT NULL," +
                 userContract.UserEntry.USERS_ROLE + " TEXT NOT NULL," +
+                userContract.UserEntry.USER_LOGGED_IN + " INTEGER NOT NULL," +
                 userContract.UserEntry.USERS_DATE_CREATED + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP," +
                 userContract.UserEntry.USERS_DATE_UPDATED + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP," +
                 " FOREIGN KEY(" + userContract.UserEntry.USERS_STUDENTS_ID + ") REFERENCES " +
@@ -67,6 +71,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + studentContract.StudentEntry.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + userContract.UserEntry.TABLE_NAME);
+
+        onCreate(db);
     }
 
     private void setDummiCredentials() {
@@ -97,6 +103,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cvUser.put(userContract.UserEntry.USERS_USERNAME, "SE/1118/021");
         cvUser.put(userContract.UserEntry.USERS_EMAIL, "sh.sital@unasat.sr");
         cvUser.put(userContract.UserEntry.USERS_ROLE, "student");
+        cvUser.put(userContract.UserEntry.USER_LOGGED_IN, 0);
         cvUser.put(userContract.UserEntry.USERS_PASSWORD, "123456");
         db.insert(userContract.UserEntry.TABLE_NAME, null, cvUser);
 
@@ -104,19 +111,75 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public boolean logInUser(String username, String password){
+    public User getLoggedInUser(){
         SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM users WHERE logged_in = ?", new String[] {"1"});
 
+        if (cursor.getCount() == 0){
+            return null;
+        }else{
+            cursor.moveToFirst();
+            int userId = cursor.getInt(0);
+            return getUser(userId);
+        }
+    }
+
+    public User logInUser(String username, String password){
+        SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM users WHERE username = ? AND password = ?", new String[]{username, password});
 
         if (cursor.getCount() == 0){
-            return false;
+            return null;
         }else{
-            Log.d(TAG, "logInUser: "+ cursor.moveToFirst());
-            return true;
+            cursor.moveToFirst();
+
+            ContentValues updateValues = new ContentValues();
+            updateValues.put("logged_in", 1);
+            int userId = cursor.getInt(0);
+            return getUser(userId);
+
         }
+    }
+
+    public boolean logOutUser(int id){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("logged_in", 0);
+        return updateUser(contentValues, id);
     }
 
 
 
+    private Boolean updateUser(ContentValues contentValues, int id){
+        SQLiteDatabase db = getWritableDatabase();
+
+        int updateQuery = db.update("users", contentValues, "id= ?", new String[] {String.valueOf(id)});
+
+        return updateQuery > 0;
+    }
+
+
+    public User getUser(int id){
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT users.id,users.email,username,role,name,first_name,birthdate,adress,district,phone_number FROM users, students WHERE users.student_id = students.id AND users.id = ?", new String[] {String.valueOf(id)});
+
+        if (cursor.getCount() == 0){
+            return null;
+        }else{
+            cursor.moveToFirst();
+            return new User(
+                    cursor.getInt(0),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getString(3),
+                    cursor.getString(4),
+                    cursor.getString(5),
+                    cursor.getString(6),
+                    cursor.getString(7),
+                    cursor.getString(8),
+                    cursor.getString(9)
+
+                    );
+        }
+    }
 }

@@ -9,6 +9,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import sr.unasat.blogger.database.DatabaseHelper;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -25,6 +26,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
+    DatabaseHelper databaseHelper;
 
 //    TODO: Fill Header with actual logged in user data
 
@@ -38,6 +40,8 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         navigationView = findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar);
 
+        databaseHelper = new DatabaseHelper(this);
+
 
         setSupportActionBar(toolbar);
 
@@ -50,14 +54,14 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
 
         navigationView.setNavigationItemSelectedListener(this);
 
-        int fragement = getIntent().getIntExtra("fragmentLoader",0);
+        int fragment = getIntent().getIntExtra("fragmentLoader",0);
 
 
 
-        if(savedInstanceState == null && fragement == 0){
+        if(savedInstanceState == null && fragment == 0){
             navigationView.setCheckedItem(R.id.nav_home);
             loadFragment(new FeedFragment());
-        }else if(fragement == 1){
+        }else if(fragment == 1){
             navigationView.setCheckedItem(R.id.nav_account);
             loadFragment(new AccountFragment());
         }
@@ -107,9 +111,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
                 .setPositiveButton("Uitloggen", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(NavigationActivity.this, LoginActivity.class);
-                        startActivity(intent);
-                        finish();
+                        logOut(1);
                     }
                 })
                 .setNegativeButton("Blijven", new DialogInterface.OnClickListener() {
@@ -121,6 +123,15 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
                     }
                 })
                 .show();
+    }
+
+    private void logOut(int id) {
+        if(databaseHelper.logOutUser(id)){
+            Intent intent = new Intent(NavigationActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
     }
 
 
