@@ -2,6 +2,8 @@ package sr.unasat.blogger;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import sr.unasat.blogger.database.DatabaseHelper;
 
 import android.content.ContentValues;
 import android.content.Intent;
@@ -11,15 +13,21 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
+
+import java.util.Arrays;
 
 public class UpdateUserActivity extends AppCompatActivity {
 
     Toolbar toolbar;
     ImageView updateBackBtn;
     Button updateUserBtn;
+    TextInputEditText updatePhone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +37,8 @@ public class UpdateUserActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.updateToolbar);
         updateBackBtn = findViewById(R.id.updateBackBtn);
         updateUserBtn = findViewById(R.id.UpdateUserBtn);
+
+        updatePhone = findViewById(R.id.phoneUpdate);
 
         updateBackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,24 +62,34 @@ public class UpdateUserActivity extends AppCompatActivity {
 
     private void updateUser(){
         AsyncUpdateUser updateUserTask = new AsyncUpdateUser();
-        updateUserTask.execute(10);
+
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put("phone_number", updatePhone.getText().toString());
+
+
+        updateUserTask.execute(contentValues);
     }
 
 //   TODO: Receive ContentValues object iof Integer
-    private class AsyncUpdateUser extends AsyncTask<Integer,Integer,String>{
-
+    private class AsyncUpdateUser extends AsyncTask<ContentValues,Integer,String>{
+        DatabaseHelper databaseHelper;
 
         @Override
         protected void onPreExecute() {
+
             super.onPreExecute();
+
+            databaseHelper = new DatabaseHelper(UpdateUserActivity.this);
         }
 
 
         @Override
-        protected String doInBackground(Integer... contentValues)
+        protected String doInBackground(ContentValues... contentValues)
         {
-//            TODO: Actually update User
-            return "Updated!";
+
+            databaseHelper.updateStudent(contentValues[0]);
+            return "";
         }
 
         @Override
@@ -85,9 +105,8 @@ public class UpdateUserActivity extends AppCompatActivity {
 
     void goToPreviousActivity(){
         Intent intent = new Intent(this, NavigationActivity.class);
-        intent.putExtra("fragmentLoader",1);
-        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-        startActivity(intent);
+        intent.putExtra("snackbarMessage", "Gegevens successvol aangepast");
+        setResult(RESULT_OK, intent);
         finish();
     }
 }

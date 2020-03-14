@@ -12,7 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".DetailActivity"></activity>
+        <service
+            android:name=".services.TimerService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity android:name=".DetailActivity" />
         <activity android:name=".UpdateUserActivity" />
         <activity android:name=".NavigationActivity" />
         <activity android:name=".RegisterActivity" />

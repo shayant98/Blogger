@@ -61,7 +61,7 @@
                     android:layout_height="wrap_content"
 
                     android:hint="Pasnummer"
-                    android:inputType="text"
+                    android:inputType="textCapCharacters"
                     android:transitionName="studnr_transistion"
                     />
 

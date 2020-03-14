@@ -188,7 +188,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    private User getUser(int id) {
+    public User getUser(int id) {
         SQLiteDatabase db = getReadableDatabase();
 
         Cursor cursor = db.rawQuery("SELECT users.id,users.email,username,role,name,first_name,birthdate,adress,district,phone_number FROM users, students WHERE users.student_id = students.id AND users.id = ?", new String[]{String.valueOf(id)});
@@ -240,6 +240,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         cursor.moveToFirst();
         return new Student(cursor.getInt(0), cursor.getString(6), cursor.getString(8));
+    }
+
+    public boolean updateStudent(ContentValues contentValues){
+        SQLiteDatabase db = getWritableDatabase();
+        int updateQuery = db.update(studentContract.StudentEntry.TABLE_NAME, contentValues, "id= ?", new String[]{String.valueOf(1)});
+        Log.d(TAG, "updateStudent: "+ updateQuery);
+        return updateQuery > 0;
     }
 
 }

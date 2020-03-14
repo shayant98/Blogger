@@ -53,12 +53,11 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/studNr"
-                android:hint="Pasnummer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                android:transitionName="studnr_transistion"
-                />
+                android:hint="Pasnummer"
+                android:inputType="textCapCharacters"
+                android:transitionName="studnr_transistion" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

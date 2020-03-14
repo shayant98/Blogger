@@ -1,6 +1,7 @@
 package sr.unasat.blogger;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -15,13 +16,17 @@ import sr.unasat.blogger.database.DatabaseHelper;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.Timer;
 
 public class NavigationActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -50,16 +55,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
 
         initNavigation();
 
-        View headerView = navigationView.getHeaderView(0);
-
-        Intent intent = getIntent();
-         user = intent.getParcelableExtra("loggedInUser");
-
-        headerStudNr = headerView.findViewById(R.id.headerStudNr);
-        headerUserName = headerView.findViewById(R.id.headerUsername);
-
-        headerUserName.setText(String.format("%s %s", user.getFirstName(), user.getName()));
-        headerStudNr.setText(user.getUsername());
+        initHeader();
 
         int fragment = getIntent().getIntExtra("fragmentLoader",0);
 
@@ -73,6 +69,21 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
             loadFragment(new AccountFragment());
         }
 
+
+
+    }
+
+    private void initHeader() {
+        View headerView = navigationView.getHeaderView(0);
+
+        Intent intent = getIntent();
+        user = intent.getParcelableExtra("loggedInUser");
+
+        headerStudNr = headerView.findViewById(R.id.headerStudNr);
+        headerUserName = headerView.findViewById(R.id.headerUsername);
+
+        headerUserName.setText(String.format("%s %s", user.getFirstName(), user.getName()));
+        headerStudNr.setText(user.getUsername());
     }
 
     private void initNavigation() {
@@ -104,6 +115,9 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
                 break;
             case R.id.nav_account:
                 loadFragment(new AccountFragment());
+                break;
+                case R.id.nav_timer:
+                loadFragment(new TimerFragment());
                 break;
             case R.id.nav_logout:
                 showLogoutMessage();
@@ -152,5 +166,14 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        if (requestCode == 1){
+            if (resultCode == RESULT_OK){
+                Toast.makeText(this, data.getStringExtra("snackbarMessage"), Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 }

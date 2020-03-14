@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import sr.unasat.blogger.Entity.User;
 import sr.unasat.blogger.database.DatabaseHelper;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -39,6 +42,7 @@ public class AccountFragment extends Fragment {
 
     public AccountFragment() {
         // Required empty public constructor
+
     }
 
 
@@ -47,29 +51,6 @@ public class AccountFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_account, container, false);
         databaseHelper = new DatabaseHelper(getContext());
-
-        TextView fragmentTitle = getActivity().findViewById(R.id.fragmentTitle);
-        fragmentTitle.setText(getResources().getString(R.string.nav_title_account));
-
-        toolbar = Objects.requireNonNull(getActivity()).findViewById(R.id.toolbar);
-        toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-
-        accountAddress = view.findViewById(R.id.accountAddress);
-        accountEmail = view.findViewById(R.id.accountEmail);
-        accountPhone = view.findViewById(R.id.accountPhone);
-
-        accountName = view.findViewById(R.id.AccountName);
-        accountStudNr = view.findViewById(R.id.accountStudNr);
-
-        Intent intent = getActivity().getIntent();
-         user = intent.getParcelableExtra("loggedInUser");
-
-
-         accountStudNr.setText(user.getUsername());
-         accountName.setText(String.format("%s %s", user.getFirstName(), user.getName()));
-        accountAddress.setText(user.getAdress());
-        accountEmail.setText(user.getEmail());
-        accountPhone.setText(user.getPhoneNumber());
 
         return view;
 
@@ -81,6 +62,21 @@ public class AccountFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         updateBtn = view.findViewById(R.id.updateBtn);
         deleteBtn = view.findViewById(R.id.deleteBtn);
+
+        accountAddress = view.findViewById(R.id.accountAddress);
+        accountEmail = view.findViewById(R.id.accountEmail);
+        accountPhone = view.findViewById(R.id.accountPhone);
+
+        accountName = view.findViewById(R.id.AccountName);
+        accountStudNr = view.findViewById(R.id.accountStudNr);
+
+
+
+        TextView fragmentTitle = getActivity().findViewById(R.id.fragmentTitle);
+        fragmentTitle.setText(getResources().getString(R.string.nav_title_account));
+
+        toolbar = Objects.requireNonNull(getActivity()).findViewById(R.id.toolbar);
+        toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
 
 
         updateBtn.setOnClickListener(new View.OnClickListener() {
@@ -97,9 +93,27 @@ public class AccountFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onStart() {
+        Intent intent = getActivity().getIntent();
+        user = intent.getParcelableExtra("loggedInUser");
+
+
+        Log.d(TAG, String.valueOf(intent.getExtras()));
+        User currentUser = databaseHelper.getUser(user.getId());
+
+        accountStudNr.setText(currentUser.getUsername());
+        accountName.setText(String.format("%s %s", currentUser.getFirstName(), currentUser.getName()));
+        accountAddress.setText(currentUser.getAdress());
+        accountEmail.setText(currentUser.getEmail());
+        accountPhone.setText(currentUser.getPhoneNumber());
+
+        super.onStart();
+    }
+
     private void goToUpdate() {
         Intent intent = new Intent(getActivity(), UpdateUserActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, 1);
     }
 
     private void goToLogin() {
@@ -110,9 +124,15 @@ public class AccountFragment extends Fragment {
     }
 
 
-
-
-
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1){
+            if (resultCode == -1){
+                Snackbar.make(getView(), data.getStringExtra("snackbarMessage"),BaseTransientBottomBar.LENGTH_LONG).show();
+            }
+        }
+    }
 
     private void deleteAccount(String password){
         boolean deleteRequest = databaseHelper.deleteUser(user.getId(),password);
