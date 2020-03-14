@@ -15,7 +15,7 @@
         android:layout_marginTop="@dimen/mtrl_card_spacing"
         android:layout_marginRight="@dimen/mtrl_card_spacing"
         android:layout_marginBottom="@dimen/mtrl_card_spacing"
-        app:cardElevation="8dp"
+        app:cardElevation="4dp"
         app:cardCornerRadius="8dp"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"

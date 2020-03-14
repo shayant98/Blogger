@@ -44,9 +44,9 @@ public class FeedFragment extends Fragment implements PostAdapter.onItemClickInt
     private RequestQueue queue;
     private RecyclerView recyclerView;
     private ArrayList<Post> postArrayList = new ArrayList<Post>();
-    SkeletonScreen skeletonScreen;
-    PostAdapter postAdapter;
-    TextView fragmentTitle, feedError;
+    private SkeletonScreen skeletonScreen;
+    private PostAdapter postAdapter;
+    private TextView fragmentTitle, feedError;
 
     public FeedFragment() {
         // Required empty public constructor
@@ -160,8 +160,6 @@ public class FeedFragment extends Fragment implements PostAdapter.onItemClickInt
     @Override
     public void onItemClick(int position) {
         Post currentPost = postArrayList.get(position);
-        Log.d("123", "onItemClick: "+ currentPost);
-
         Intent intent = new Intent(getActivity(), DetailActivity.class);
         intent.putExtra("PostTitle", currentPost.getTitle());
         intent.putExtra("PostId", currentPost.getId());

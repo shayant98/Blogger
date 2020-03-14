@@ -1,6 +1,9 @@
 package sr.unasat.blogger;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -55,5 +58,13 @@ public class TimerFragment extends Fragment {
         });
 
         return view;
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+
     }
 }
