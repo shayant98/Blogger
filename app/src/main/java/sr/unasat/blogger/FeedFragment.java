@@ -4,10 +4,13 @@ package sr.unasat.blogger;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import sr.unasat.blogger.Adapter.PostAdapter;
 import sr.unasat.blogger.Entity.Post;
 
@@ -26,6 +29,8 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.ethanhua.skeleton.Skeleton;
 import com.ethanhua.skeleton.SkeletonScreen;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,12 +40,13 @@ import java.util.ArrayList;
 
 
 public class FeedFragment extends Fragment implements PostAdapter.onItemClickInterface {
+    private SwipeRefreshLayout swipeRefreshLayout;
     private RequestQueue queue;
     private RecyclerView recyclerView;
     private ArrayList<Post> postArrayList = new ArrayList<Post>();
     SkeletonScreen skeletonScreen;
     PostAdapter postAdapter;
-    TextView fragmentTitle;
+    TextView fragmentTitle, feedError;
 
     public FeedFragment() {
         // Required empty public constructor
@@ -74,12 +80,38 @@ public class FeedFragment extends Fragment implements PostAdapter.onItemClickInt
         return view;
     }
 
-private void getPosts(){
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        swipeRefreshLayout = view.findViewById(R.id.refreshLayout);
+        recyclerView = view.findViewById(R.id.postFeed);
+        feedError = view.findViewById(R.id.feedError);
+
+
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                skeletonScreen.show();
+                recyclerView.setVisibility(View.GONE);
+                getPosts();
+            }
+
+
+        });
+    }
+
+    private void getPosts(){
     final String URL = "http://rest.wayangrentalservices.com/wp-json/wp/v2/posts/";
     JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, URL, null, new Response.Listener<JSONArray>() {
         @Override
         public void onResponse(JSONArray response) {
             try {
+                if (response.length() == 0){
+                    throw new Exception();
+                }
+                postArrayList.clear();
                 for (int i = 0; i < response.length(); i++){
                     JSONObject postObject = response.getJSONObject(i);
 
@@ -87,7 +119,8 @@ private void getPosts(){
                             postObject.getInt("id"),
                             postObject.getJSONObject("title").getString("rendered"),
                             postObject.getString("date"),
-                            postObject.getJSONObject("excerpt").getString("rendered")
+                            postObject.getJSONObject("excerpt").getString("rendered"),
+                            postObject.getJSONObject("better_featured_image").getJSONObject("media_details").getJSONObject("sizes").getJSONObject("thumbnail").getString("source_url")
                     );
 
                     postArrayList.add(post);
@@ -95,16 +128,24 @@ private void getPosts(){
 
                 initAdapter();
                 toggleRecyclerview();
-
-            } catch (JSONException e) {
-                e.printStackTrace();
+                swipeRefreshLayout.setRefreshing(false);
+            } catch (Exception e) {
+                feedError.setVisibility(View.VISIBLE);
             }
 
         }
     }, new Response.ErrorListener() {
         @Override
         public void onErrorResponse(VolleyError error) {
-            Log.e("error", "onErrorResponse: "+ error.getMessage() );
+            Snackbar.make(getView(), "Er is iets misgegaan", BaseTransientBottomBar.LENGTH_LONG).setAction("opnieuw proberen", new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    swipeRefreshLayout.setRefreshing(true);
+                    getPosts();
+                }
+            }).show();
+
+            swipeRefreshLayout.setRefreshing(false);
         }
 
     });

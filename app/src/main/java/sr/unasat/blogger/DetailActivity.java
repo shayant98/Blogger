@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -17,6 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,6 +26,7 @@ import org.json.JSONObject;
 public class DetailActivity extends AppCompatActivity {
 //    TextView postTitle;
     ImageButton detailBackBtn;
+    ImageView postImage;
     TextView postBody;
     Toolbar detailToolbar;
     private RequestQueue queue;
@@ -49,6 +52,7 @@ public class DetailActivity extends AppCompatActivity {
 //        postTitle = findViewById(R.id.postTitle);
         detailBackBtn = findViewById(R.id.detailBackBtn);
         postBody = findViewById(R.id.postBody);
+        postImage = findViewById(R.id.postImage);
         getPost(id);
 
 
@@ -81,9 +85,16 @@ public class DetailActivity extends AppCompatActivity {
                             postObject.getInt("id"),
                             postObject.getJSONObject("title").getString("rendered"),
                             postObject.getString("date"),
-                            postObject.getJSONObject("content").getString("rendered")
+                            postObject.getJSONObject("content").getString("rendered"),
+                            postObject.getJSONObject("better_featured_image").getJSONObject("media_details").getJSONObject("sizes").getJSONObject("large").getString("source_url")
+
                     );
                     postBody.setText(post.getBody());
+                    Picasso
+                            .get()
+                            .load(post.getImage())
+                            .placeholder(R.drawable.unasat_logo)
+                            .into(postImage);
 
                 } catch (JSONException e) {
                     e.printStackTrace();

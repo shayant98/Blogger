@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/postCard"
@@ -14,6 +14,7 @@
         android:layout_marginLeft="@dimen/mtrl_card_spacing"
         android:layout_marginTop="@dimen/mtrl_card_spacing"
         android:layout_marginRight="@dimen/mtrl_card_spacing"
+        android:layout_marginBottom="@dimen/mtrl_card_spacing"
         app:cardElevation="8dp"
         app:cardCornerRadius="8dp"
         android:clickable="true"
@@ -46,7 +47,10 @@
                    android:layout_height="wrap_content"
                    android:layout_weight="0.05">
 
+
+
                    <ImageView
+                       android:id="@+id/post_image"
                        android:layout_width="80dp"
                        android:layout_height="80dp"
                        android:src="@drawable/user_icon"

@@ -5,13 +5,15 @@ public class Post {
     private String title;
     private String date;
     private String body;
+    private String image;
 
 
-    public Post(int id, String title, String date, String body) {
+    public Post(int id, String title, String date, String body,String image) {
         this.id = id;
         this.title = title;
         this.date = date;
         this.body = body;
+        this.image = image;
     }
 
     public int getId() {
@@ -44,6 +46,14 @@ public class Post {
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     @Override

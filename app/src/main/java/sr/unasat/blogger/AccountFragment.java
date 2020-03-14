@@ -99,7 +99,6 @@ public class AccountFragment extends Fragment {
         user = intent.getParcelableExtra("loggedInUser");
 
 
-        Log.d(TAG, String.valueOf(intent.getExtras()));
         User currentUser = databaseHelper.getUser(user.getId());
 
         accountStudNr.setText(currentUser.getUsername());

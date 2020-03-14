@@ -5,9 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.card.MaterialCardView;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -39,6 +41,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostAdapterVie
     public class PostAdapterViewHolder extends RecyclerView.ViewHolder  {
 
         public TextView postTitle, postAuthor, postDate, postBody;
+        public ImageView postImage;
         public MaterialCardView postCard;
         public ImageButton shareBtn;
 
@@ -50,6 +53,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostAdapterVie
             postDate = itemView.findViewById(R.id.post_date);
             postBody = itemView.findViewById(R.id.post_body);
             postCard = itemView.findViewById(R.id.postCard);
+            postImage = itemView.findViewById(R.id.post_image);
             shareBtn = itemView.findViewById(R.id.shareBtn);
 
             postCard.setOnClickListener(new View.OnClickListener() {
@@ -93,7 +97,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostAdapterVie
         Post currentPost = posts.get(position);
 
 
-
+        Picasso
+                .get()
+                .load(currentPost.getImage())
+                .placeholder(R.drawable.unasat_logo)
+                .into(holder.postImage);
         holder.postTitle.setText(currentPost.getTitle());
         holder.postBody.setText(currentPost.getBody());
         holder.postDate.setText(currentPost.getDate());

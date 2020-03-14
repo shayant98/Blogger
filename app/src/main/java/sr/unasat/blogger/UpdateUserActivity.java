@@ -71,7 +71,6 @@ public class UpdateUserActivity extends AppCompatActivity {
         updateUserTask.execute(contentValues);
     }
 
-//   TODO: Receive ContentValues object iof Integer
     private class AsyncUpdateUser extends AsyncTask<ContentValues,Integer,String>{
         DatabaseHelper databaseHelper;
 

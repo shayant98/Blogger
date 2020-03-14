@@ -60,31 +60,31 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_marginBottom="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:passwordToggleEnabled="true">
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            android:layout_marginBottom="10dp"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+<!--            app:passwordToggleEnabled="true">-->
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/passwordUpdate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableStart="@drawable/lock_icon"
-                android:drawablePadding="10dp"
-                android:hint="Wachtwoord"
-                android:text="niets"
-                android:inputType="textPassword"
-                android:transitionName="password_transistion"/>
+<!--            <com.google.android.material.textfield.TextInputEditText-->
+<!--                android:id="@+id/passwordUpdate"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:drawableStart="@drawable/lock_icon"-->
+<!--                android:drawablePadding="10dp"-->
+<!--                android:hint="Wachtwoord"-->
+<!--                android:text="niets"-->
+<!--                android:inputType="textPassword"-->
+<!--                android:transitionName="password_transistion"/>-->
 
-        </com.google.android.material.textfield.TextInputLayout>
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
 
         <Button
             android:id="@+id/UpdateUserBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Aanpassen!"
+            android:text="Gegevens aanpassen"
             style="@style/blackBtnStyle"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"

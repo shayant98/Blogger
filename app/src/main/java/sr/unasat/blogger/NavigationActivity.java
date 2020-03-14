@@ -16,17 +16,14 @@ import sr.unasat.blogger.database.DatabaseHelper;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationView;
 
-import java.util.Timer;
 
 public class NavigationActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -166,14 +163,5 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
 
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 1){
-            if (resultCode == RESULT_OK){
-                Toast.makeText(this, data.getStringExtra("snackbarMessage"), Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
 }
