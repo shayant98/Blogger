@@ -1,6 +1,7 @@
 
 package sr.unasat.blogger;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -12,24 +13,31 @@ import androidx.fragment.app.Fragment;
 import sr.unasat.blogger.services.TimerService;
 
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.sql.Time;
 import java.util.Locale;
 import java.util.Timer;
+import java.util.concurrent.TimeUnit;
 
 import static android.Manifest.permission.FOREGROUND_SERVICE;
 import android.content.pm.PackageManager;
 
+import com.google.android.material.textfield.TextInputEditText;
+
 
 public class TimerFragment extends Fragment {
 
+    TextInputEditText customTime;
     TextView timerClock;
     Button timerStart, timerStop;
+    ProgressBar timerProgress;
 
 
     public TimerFragment() {
@@ -56,16 +64,22 @@ public class TimerFragment extends Fragment {
         timerStart = view.findViewById(R.id.timerBtnStart);
         timerStop = view.findViewById(R.id.timerBtnStop);
 
-        timerClock = view.findViewById(R.id.editText);
+        customTime = view.findViewById(R.id.customTime);
+        timerClock = view.findViewById(R.id.timerClock);
+
 
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("Counter");
 
         BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+            @SuppressLint("DefaultLocale")
             @Override
             public void onReceive(Context context, Intent intent) {
                 Integer integerTime = intent.getIntExtra("TimeRemaining", 0);
-                timerClock.setText(integerTime.toString());
+                Integer timeSet = intent.getIntExtra("timeSet", 0);
+                timerClock.setText(parseTime(integerTime));
+
+
             }
         };
         getActivity().registerReceiver(broadcastReceiver, intentFilter);
@@ -76,9 +90,24 @@ public class TimerFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intentService = new Intent(getActivity(), TimerService.class);
-                Integer integerTimeSet = Integer.parseInt(timerClock.getText().toString());
+
+                String customTimeValue = customTime.getText().toString();
+                int integerTimeSet = 1500;
+                
+                if (!customTimeValue.equals("")){
+                    integerTimeSet = Integer.parseInt(customTimeValue);
+                    integerTimeSet *= 60;
+                }
+
+
+
+
                 intentService.putExtra("TimeValue", integerTimeSet);
                 getActivity().startService(intentService);
+
+                timerStart.setVisibility(View.GONE);
+                timerStop.setVisibility(View.VISIBLE);
+                customTime.setVisibility(View.GONE);
             }
         });
 
@@ -87,12 +116,27 @@ public class TimerFragment extends Fragment {
             public void onClick(View v) {
                 Intent intentService = new Intent(getActivity(), TimerService.class);
                 getActivity().stopService(intentService);
+
+                timerStart.setVisibility(View.VISIBLE);
+                timerStop.setVisibility(View.GONE);
+                customTime.setVisibility(View.VISIBLE);
             }
         });
 
 
 
         return view;
+    }
+
+    @SuppressLint("DefaultLocale")
+    private String parseTime(Integer integerTime) {
+
+
+        return String.format("%02d:%02d",
+                TimeUnit.MILLISECONDS.toMinutes(integerTime *1000),
+                TimeUnit.MILLISECONDS.toSeconds(integerTime *1000) -
+                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(integerTime *1000))
+        );
     }
 
 

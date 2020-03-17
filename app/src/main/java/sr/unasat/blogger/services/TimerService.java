@@ -1,6 +1,7 @@
 package sr.unasat.blogger.services;
 
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -18,6 +19,7 @@ import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 import sr.unasat.blogger.R;
 import sr.unasat.blogger.TimerFragment;
@@ -27,8 +29,11 @@ public class TimerService extends Service {
 
     private static final String CHANNEL_ID = "NotificationChannelID";
     private MediaPlayer player;
+    private Timer timer;
     @Override
     public void onCreate(){
+        player = MediaPlayer.create(getApplicationContext(), Settings.System.DEFAULT_ALARM_ALERT_URI);
+        timer = new Timer();
         super.onCreate();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
             startMyOwnForeground();
@@ -37,7 +42,7 @@ public class TimerService extends Service {
     }
 
     private void startMyOwnForeground(){
-        String NOTIFICATION_CHANNEL_ID = "com.example.simpleapp";
+        String NOTIFICATION_CHANNEL_ID = "sr.unasat.blogger";
         String channelName = "My Background Service";
         NotificationChannel chan = new NotificationChannel(NOTIFICATION_CHANNEL_ID, channelName, NotificationManager.IMPORTANCE_NONE);
         chan.setLightColor(Color.BLUE);
@@ -66,7 +71,7 @@ public class TimerService extends Service {
     public int onStartCommand(final Intent intent, int flags, int startId) {
 
         final Integer[] timeRemaining = {intent.getIntExtra("TimeValue", 0)};
-        final Timer timer = new Timer();
+        int progress = 1;
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -75,12 +80,12 @@ public class TimerService extends Service {
                 timeRemaining[0]--;
                 NotificationUpdate(timeRemaining[0]);
                 if (timeRemaining[0] <= 0){
-                    player = MediaPlayer.create(getApplicationContext(), Settings.System.DEFAULT_ALARM_ALERT_URI);
                     player.setLooping(true);
                     player.start();
                     timer.cancel();
                 }
                 intent1local.putExtra("TimeRemaining", timeRemaining[0]);
+                intent1local.putExtra("timeSet", intent.getIntExtra("TimeValue", 0));
                 sendBroadcast(intent1local);
             }
         }, 0,1000);
@@ -94,8 +99,8 @@ public class TimerService extends Service {
             Intent notificationIntent = new Intent(this, TimerFragment.class);
             final PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
             final Notification[] notification = {new NotificationCompat.Builder(this, CHANNEL_ID)
-                    .setContentTitle("Unasat-M")
-                    .setContentText("Time Remaing : " + timeLeft.toString())
+                    .setContentTitle("timer")
+                    .setContentText("Time Remaing : " + parseTime(timeLeft))
                     .setSmallIcon(R.drawable.ic_launcher_foreground)
                     .setContentIntent(pendingIntent)
                     .build()};
@@ -109,13 +114,27 @@ public class TimerService extends Service {
         }
     }
 
+
     @Override
     public void onDestroy() {
-        player.stop();
+
+        if (player.isPlaying()){
+            player.stop();
+        }
+        timer.cancel();
         stopForeground(true);
 
     }
+    @SuppressLint("DefaultLocale")
+    private String parseTime(Integer integerTime) {
 
+
+        return String.format("%02d:%02d",
+                TimeUnit.MILLISECONDS.toMinutes(integerTime *1000),
+                TimeUnit.MILLISECONDS.toSeconds(integerTime *1000) -
+                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(integerTime *1000))
+        );
+    }
 
 
 }
