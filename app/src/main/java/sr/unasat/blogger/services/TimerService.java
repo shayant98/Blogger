@@ -75,9 +75,9 @@ public class TimerService extends Service {
                 timeRemaining[0]--;
                 NotificationUpdate(timeRemaining[0]);
                 if (timeRemaining[0] <= 0){
-//                    player = MediaPlayer.create(getApplicationContext(), Settings.System.DEFAULT_ALARM_ALERT_URI);
-//                    player.setLooping(true);
-//                    player.start();
+                    player = MediaPlayer.create(getApplicationContext(), Settings.System.DEFAULT_ALARM_ALERT_URI);
+                    player.setLooping(true);
+                    player.start();
                     timer.cancel();
                 }
                 intent1local.putExtra("TimeRemaining", timeRemaining[0]);
@@ -111,10 +111,8 @@ public class TimerService extends Service {
 
     @Override
     public void onDestroy() {
-//        player.stop();
-//        NotificationManager notificationManager = getSystemService(NotificationManager.class);
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.deleteNotificationChannel(CHANNEL_ID);
+        player.stop();
+        stopForeground(true);
 
     }
 
