@@ -18,7 +18,10 @@
         <service android:name=".services.TimerService"/>
         <activity android:name=".DetailActivity" />
         <activity android:name=".UpdateUserActivity" />
-        <activity android:name=".NavigationActivity" />
+        <activity
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"
+            android:name=".NavigationActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".MainActivity">

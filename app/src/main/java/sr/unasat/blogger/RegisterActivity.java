@@ -173,6 +173,7 @@ public class RegisterActivity extends AppCompatActivity {
     private void goToFeed(User loggedInUser){
         Intent intent = new Intent(RegisterActivity.this, NavigationActivity.class);
         intent.putExtra("loggedInUser", loggedInUser);
+        intent.putExtra("snackbarMessage", "Welkom "+ loggedInUser.getFirstName() + " " + loggedInUser.getName());
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
         finish();

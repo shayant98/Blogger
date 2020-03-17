@@ -37,7 +37,7 @@
         android:fontFamily="@font/bungee"
         android:text="25:00"
         android:textSize="58sp"
-        app:layout_constraintBottom_toTopOf="@+id/timerBtnStart"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +45,7 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/studentNrLayout"
+        android:id="@+id/customTimeLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -55,7 +55,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timerBtnStart">
+        app:layout_constraintTop_toBottomOf="@+id/timerBtnStart"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/customTime"
@@ -63,6 +64,7 @@
             android:layout_height="59dp"
             android:hint="Tijd in minuten"
             android:inputType="number"
+
             />
 
     </com.google.android.material.textfield.TextInputLayout>

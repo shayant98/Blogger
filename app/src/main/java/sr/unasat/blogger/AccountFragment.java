@@ -139,10 +139,10 @@ public class AccountFragment extends Fragment {
             if (deleteRequest){
                 goToLogin();
             }else{
-                Snackbar.make(getView(), "Er is iets misgegaan,probeer aub opnieuw",BaseTransientBottomBar.LENGTH_LONG).setAction("opnieuw proberen", new View.OnClickListener() {
+                Snackbar.make(getView(), "Er is iets misgegaan",BaseTransientBottomBar.LENGTH_LONG).setAction("opnieuw proberen", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        AccountFragment.this.deleteAccount(password);
+                        AccountFragment.this.showDeleteUserMessage();
                     }
                 }).show();
             }

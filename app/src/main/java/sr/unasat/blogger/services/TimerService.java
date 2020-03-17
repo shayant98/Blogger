@@ -71,7 +71,6 @@ public class TimerService extends Service {
     public int onStartCommand(final Intent intent, int flags, int startId) {
 
         final Integer[] timeRemaining = {intent.getIntExtra("TimeValue", 0)};
-        int progress = 1;
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -102,6 +101,7 @@ public class TimerService extends Service {
                     .setContentText("Time Remaing : " + parseTime(timeLeft))
                     .setSmallIcon(R.drawable.ic_launcher_foreground)
                     .setContentIntent(pendingIntent)
+                    .setVibrate(null)
                     .build()};
             startForeground(1, notification[0]);
             NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID, "My Counter Service", NotificationManager.IMPORTANCE_DEFAULT);

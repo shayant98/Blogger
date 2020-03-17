@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import sr.unasat.blogger.services.TimerService;
@@ -23,6 +24,7 @@ import android.widget.TextView;
 
 import java.sql.Time;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Timer;
 import java.util.concurrent.TimeUnit;
 
@@ -30,14 +32,16 @@ import static android.Manifest.permission.FOREGROUND_SERVICE;
 import android.content.pm.PackageManager;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 
 public class TimerFragment extends Fragment {
 
     TextInputEditText customTime;
+    TextInputLayout customTimeLayout;
     TextView timerClock;
     Button timerStart, timerStop;
-    ProgressBar timerProgress;
+    Toolbar toolbar;
 
 
     public TimerFragment() {
@@ -65,7 +69,14 @@ public class TimerFragment extends Fragment {
         timerStop = view.findViewById(R.id.timerBtnStop);
 
         customTime = view.findViewById(R.id.customTime);
+        customTimeLayout = view.findViewById(R.id.customTimeLayout);
         timerClock = view.findViewById(R.id.timerClock);
+
+        TextView fragmentTitle = getActivity().findViewById(R.id.fragmentTitle);
+        fragmentTitle.setText(getResources().getString(R.string.nav_title_timer));
+
+        toolbar = Objects.requireNonNull(getActivity()).findViewById(R.id.toolbar);
+        toolbar.setBackgroundColor(getResources().getColor(R.color.textColorDark));
 
 
         IntentFilter intentFilter = new IntentFilter();
@@ -77,6 +88,11 @@ public class TimerFragment extends Fragment {
             public void onReceive(Context context, Intent intent) {
                 Integer integerTime = intent.getIntExtra("TimeRemaining", 0);
                 timerClock.setText(parseTime(integerTime));
+
+                timerStart.setVisibility(View.GONE);
+                timerStop.setVisibility(View.VISIBLE);
+                customTime.setVisibility(View.GONE);
+                customTimeLayout.setVisibility(View.GONE);
 
 
             }
@@ -92,8 +108,8 @@ public class TimerFragment extends Fragment {
 
                 String customTimeValue = customTime.getText().toString();
                 int integerTimeSet = 1500;
-                
-                if (!customTimeValue.equals("")){
+
+                if (!customTimeValue.equals("") && !customTimeValue.equals("0")){
                     integerTimeSet = Integer.parseInt(customTimeValue);
                     integerTimeSet *= 60;
                 }
@@ -107,6 +123,7 @@ public class TimerFragment extends Fragment {
                 timerStart.setVisibility(View.GONE);
                 timerStop.setVisibility(View.VISIBLE);
                 customTime.setVisibility(View.GONE);
+                customTimeLayout.setVisibility(View.GONE);
             }
         });
 
@@ -119,6 +136,8 @@ public class TimerFragment extends Fragment {
                 timerStart.setVisibility(View.VISIBLE);
                 timerStop.setVisibility(View.GONE);
                 customTime.setVisibility(View.VISIBLE);
+                customTimeLayout.setVisibility(View.VISIBLE);
+
             }
         });
 
