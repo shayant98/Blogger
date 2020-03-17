@@ -1,22 +1,14 @@
 package sr.unasat.blogger.database;
 
-import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.CharArrayBuffer;
-import android.database.ContentObserver;
 import android.database.Cursor;
-import android.database.DataSetObserver;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.net.Uri;
-import android.os.Bundle;
 import android.util.Log;
 
-import java.util.Arrays;
-
 import androidx.annotation.Nullable;
-
 import sr.unasat.blogger.Entity.Student;
 import sr.unasat.blogger.Entity.User;
 
@@ -27,7 +19,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public DatabaseHelper(@Nullable Context context) {
         super(context, DB_NAME, null, DB_VERSION);
-        setDummiCredentials();
+
 
     }
 
@@ -61,7 +53,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db.execSQL(SQL_CREATE_STUDENTS_TABLE);
         db.execSQL(SQL_CREATE_USERS_TABLE);
-
+        setDummiCredentials(db);
 
     }
 
@@ -73,8 +65,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    private void setDummiCredentials() {
-        SQLiteDatabase db = getWritableDatabase();
+    private void setDummiCredentials(SQLiteDatabase db) {
 //        Cursor cursor = db.query(userContract.UserEntry.TABLE_NAME, null,userContract.UserEntry.USERS_USERNAME,new String[]{"username"},null,null,null);
         String sql = "SELECT * FROM " + userContract.UserEntry.TABLE_NAME + " WHERE " + userContract.UserEntry.USERS_USERNAME + " = 'SE/1118/021'";
         Cursor cursor = db.rawQuery(sql, null);
@@ -141,7 +132,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         } else {
             cursor.moveToFirst();
             int userId = cursor.getInt(0);
-            Log.d(TAG, "getLoggedInUser: " + userId);
             return getUser(userId);
         }
     }
@@ -174,17 +164,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private boolean updateUser(ContentValues contentValues, int id) {
         SQLiteDatabase db = getWritableDatabase();
 
-        int updateQuery = db.update(userContract.UserEntry.TABLE_NAME, contentValues, "id= ?", new String[]{String.valueOf(id)});
+        try {
+            int updateQuery = db.update(userContract.UserEntry.TABLE_NAME, contentValues, "id= ?", new String[]{String.valueOf(id)});
 
-        return updateQuery > 0;
+            return updateQuery > 0;
+        }catch (SQLiteException e){
+            return false;
+        }
     }
 
     public boolean deleteUser(int id, String password) {
         SQLiteDatabase db = getWritableDatabase();
+        int deleteQuery;
+        try {
+            deleteQuery = db.delete(userContract.UserEntry.TABLE_NAME, "id=? and password = ?", new String[]{String.valueOf(id), password});
+            return deleteQuery > 0;
+        }catch (SQLiteException e){
+            return false;
+        }
 
-        int deleteQuery = db.delete(userContract.UserEntry.TABLE_NAME, "id=? and password = ?", new String[]{String.valueOf(id), password});
 
-        return deleteQuery > 0;
     }
 
 
@@ -228,7 +227,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return false;
         }
         cursor.moveToFirst();
-        Log.d(TAG, "getUserByStudNr: "+ cursor.getCount());
         return true;
     }
 
@@ -244,9 +242,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public boolean updateStudent(ContentValues contentValues){
         SQLiteDatabase db = getWritableDatabase();
-        int updateQuery = db.update(studentContract.StudentEntry.TABLE_NAME, contentValues, "id= ?", new String[]{String.valueOf(1)});
-        Log.d(TAG, "updateStudent: "+ updateQuery);
-        return updateQuery > 0;
+        try {
+            int updateQuery = db.update(studentContract.StudentEntry.TABLE_NAME, contentValues, "id= ?", new String[]{String.valueOf(1)});
+            return updateQuery > 0;
+        }catch (SQLiteException e){
+            return false;
+        }
     }
 
 }

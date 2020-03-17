@@ -117,6 +117,7 @@ public class AccountFragment extends Fragment {
 
     private void goToLogin() {
         Intent intent = new Intent(getActivity(), LoginActivity.class);
+        intent.putExtra("snackbarMessage", "Account succesvol verwijderd");
         startActivity(intent);
         Objects.requireNonNull(getActivity()).finish();
 
@@ -133,12 +134,17 @@ public class AccountFragment extends Fragment {
         }
     }
 
-    private void deleteAccount(String password){
+    private void deleteAccount(final String password){
         boolean deleteRequest = databaseHelper.deleteUser(user.getId(),password);
             if (deleteRequest){
                 goToLogin();
             }else{
-                Toast.makeText(getContext(), "Unable to delete user", Toast.LENGTH_SHORT).show();
+                Snackbar.make(getView(), "Er is iets misgegaan,probeer aub opnieuw",BaseTransientBottomBar.LENGTH_LONG).setAction("opnieuw proberen", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        AccountFragment.this.deleteAccount(password);
+                    }
+                }).show();
             }
     }
 
@@ -170,7 +176,9 @@ public class AccountFragment extends Fragment {
                     dialogPasswordLayout.setError("Vul aub uw wachtwoord in");
                 }else{
                     dialogPasswordLayout.setErrorEnabled(false);
+                    builder.dismiss();
                     deleteAccount(dialogPassword.getText().toString());
+
                 }
             }
         });

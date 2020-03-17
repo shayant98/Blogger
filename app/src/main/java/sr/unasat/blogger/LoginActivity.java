@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.view.WindowManager;
@@ -17,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -54,6 +57,12 @@ public class LoginActivity extends AppCompatActivity {
         passwordLayout = findViewById(R.id.passwordLayout);
 
         databaseHelper = new DatabaseHelper(this);
+
+
+        Intent intent = getIntent();
+        if (intent.hasExtra("snackbarMessage")){
+            Snackbar.make(this.findViewById(android.R.id.content),intent.getStringExtra("snackbarMessage"), BaseTransientBottomBar.LENGTH_SHORT).show();
+        }
 
 
         register.setOnClickListener(new View.OnClickListener() {
@@ -119,6 +128,7 @@ public class LoginActivity extends AppCompatActivity {
     private void goToFeed(User loggedInUser){
         Intent intent = new Intent(LoginActivity.this, NavigationActivity.class);
         intent.putExtra("loggedInUser", loggedInUser);
+        intent.putExtra("snackbarMessage", "Welkom "+ loggedInUser.getFirstName() + " " + loggedInUser.getName());
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
         finish();

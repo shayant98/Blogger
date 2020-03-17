@@ -23,6 +23,8 @@ import android.widget.TextView;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 
 
 public class NavigationActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -54,8 +56,12 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
 
         initHeader();
 
-        int fragment = getIntent().getIntExtra("fragmentLoader",0);
+        Intent intent = getIntent();
+        int fragment = intent.getIntExtra("fragmentLoader",0);
 
+        if (intent.hasExtra("snackbarMessage")){
+            Snackbar.make(this.findViewById(android.R.id.content),intent.getStringExtra("snackbarMessage"), BaseTransientBottomBar.LENGTH_SHORT).show();
+        }
 
 
         if(savedInstanceState == null && fragment == 0){
@@ -157,6 +163,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     private void logOut(int id) {
         if(databaseHelper.logOutUser(id)){
             Intent intent = new Intent(NavigationActivity.this, LoginActivity.class);
+            intent.putExtra("snackbarMessage", "Successvol uitgelogt");
             startActivity(intent);
             finish();
         }

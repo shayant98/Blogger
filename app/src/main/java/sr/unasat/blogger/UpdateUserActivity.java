@@ -57,7 +57,7 @@ public class UpdateUserActivity extends AppCompatActivity {
     }
 
     private void goToAccount() {
-        goToPreviousActivity();
+        goToPreviousActivity(RESULT_CANCELED,"");
     }
 
     private void updateUser(){
@@ -87,8 +87,10 @@ public class UpdateUserActivity extends AppCompatActivity {
         protected String doInBackground(ContentValues... contentValues)
         {
 
-            databaseHelper.updateStudent(contentValues[0]);
-            return "";
+            if(!databaseHelper.updateStudent(contentValues[0])){
+                return "Er is iets misgegaan";
+            }
+            return "Gegevens successvol aangepast";
         }
 
         @Override
@@ -98,14 +100,14 @@ public class UpdateUserActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String s) {
-            goToPreviousActivity();
+            goToPreviousActivity(RESULT_OK,s);
         }
     }
 
-    void goToPreviousActivity(){
+    void goToPreviousActivity(int ResultCode,String message){
         Intent intent = new Intent(this, NavigationActivity.class);
-        intent.putExtra("snackbarMessage", "Gegevens successvol aangepast");
-        setResult(RESULT_OK, intent);
+        intent.putExtra("snackbarMessage", message);
+        setResult(ResultCode, intent);
         finish();
     }
 }
