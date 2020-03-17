@@ -85,7 +85,6 @@ public class TimerService extends Service {
                     timer.cancel();
                 }
                 intent1local.putExtra("TimeRemaining", timeRemaining[0]);
-                intent1local.putExtra("timeSet", intent.getIntExtra("TimeValue", 0));
                 sendBroadcast(intent1local);
             }
         }, 0,1000);

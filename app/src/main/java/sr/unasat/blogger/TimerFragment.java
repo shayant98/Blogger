@@ -76,7 +76,6 @@ public class TimerFragment extends Fragment {
             @Override
             public void onReceive(Context context, Intent intent) {
                 Integer integerTime = intent.getIntExtra("TimeRemaining", 0);
-                Integer timeSet = intent.getIntExtra("timeSet", 0);
                 timerClock.setText(parseTime(integerTime));
 
 
