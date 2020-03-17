@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
 
@@ -29,6 +30,7 @@ public class RegisterActivity extends AppCompatActivity {
     ImageView logo;
     TextView logoText, sloganText;
     TextInputEditText studentenNummer, passwordInput, passwordConfirm;
+    TextInputLayout studentenNummerLayout, passwordInputLayout, passwordConfirmLayout;
     DatabaseHelper databaseHelper;
 
     @Override
@@ -48,6 +50,9 @@ public class RegisterActivity extends AppCompatActivity {
         studentenNummer = findViewById(R.id.studentNrRegister);
         passwordInput = findViewById(R.id.passwordRegister);
         passwordConfirm = findViewById(R.id.passwordConfirmRegister);
+        studentenNummerLayout = findViewById(R.id.studentNrRegisterLayout);
+        passwordInputLayout = findViewById(R.id.passwordRegisterLayout);
+        passwordConfirmLayout = findViewById(R.id.passwordConfirmRegisterLayout);
 
         studentenNummer.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -91,28 +96,27 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
 
-//    TODO: Build validation
-//    TODO: Register User Function
     private boolean validateStudentNr()
     {
+        studentenNummerLayout.setErrorEnabled(true);
         String value = Objects.requireNonNull(studentenNummer.getText()).toString();
 
         if (value.isEmpty()) {
-            studentenNummer.setError("Field cannot be empty");
+            studentenNummerLayout.setError("Vul aub een pasnummer in");
             return false;
         } else {
             boolean userExists = databaseHelper.getUserByStudNr(value);
             if (!userExists){
                 Student studentExists = databaseHelper.getStudentByStudNr(value);
                 if (studentExists == null){
-                    studentenNummer.setError("Studentnummer bestaat niet");
+                    studentenNummerLayout.setError("Studentnummer bestaat niet");
                     return false;
                 }else {
-                    studentenNummer.setError(null);
+                    studentenNummerLayout.setError(null);
                     return true;
                 }
             }else{
-                studentenNummer.setError("Account met dit studentnummer bestaat al");
+                studentenNummerLayout.setError("Account met dit studentnummer bestaat al");
                 return false;
             }
         }
@@ -120,22 +124,25 @@ public class RegisterActivity extends AppCompatActivity {
 
 
     private boolean validatePassword(){
+        passwordInputLayout.setErrorEnabled(true);
+        passwordConfirmLayout.setErrorEnabled(true);
         String passwordValue = passwordInput.getText().toString();
         String passwordConfirmValue = passwordConfirm.getText().toString();
 
         if (passwordValue.length() <  6){
-            passwordInput.setError("Ongeldig");
+            Toast.makeText(this, passwordValue, Toast.LENGTH_SHORT).show();
+            passwordInputLayout.setError("Aub een password met 6 of meer characters");
             return false;
         }
 
         if (!passwordValue.equals(passwordConfirmValue)){
-            passwordInput.setError("Ongeldig");
-            passwordConfirm.setError("Ongeldig");
+            passwordInputLayout.setError("Password is ongelijk");
+            passwordConfirmLayout.setError("Password is ongelijk");
             return false;
         }
 
-        passwordInput.setError(null);
-        passwordConfirm.setError(null);
+        passwordInputLayout.setError(null);
+        passwordConfirmLayout.setError(null);
         return true;
 
 
@@ -156,7 +163,6 @@ public class RegisterActivity extends AppCompatActivity {
             newUser.put("role", "student");
             newUser.put("logged_in", 0);
 
-            Log.d(TAG, "registerUser: "+ newUser);
 
             if(databaseHelper.insertUser(newUser)){
                 goToFeed(databaseHelper.logInUser(studentnummer,password));

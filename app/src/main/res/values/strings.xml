@@ -12,4 +12,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="postimage">ShareIcon</string>
+    <string name="registerSlogan">Registreer met je pas, om verder te gaan</string>
+    <string name="welkom_student">Welkom, Student</string>
 </resources>
