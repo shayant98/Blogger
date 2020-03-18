@@ -100,23 +100,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         //dummy students
         cvStudent.clear();
         cvStudent.put(studentContract.StudentEntry.STUDENTS_FIRST_NAME, "Jason");
-        cvStudent.put(studentContract.StudentEntry.STUDENTS_NAME, "Kasi");
-        cvStudent.put(studentContract.StudentEntry.STUDENTS_BIRTHDATE, "01-08-98");
-        cvStudent.put(studentContract.StudentEntry.STUDENTS_ADRESS, "Kwattaweg 685");
-        cvStudent.put(studentContract.StudentEntry.STUDENTS_DISTRICT, "Wanica");
-        cvStudent.put(studentContract.StudentEntry.STUDENTS_STUDENT_NUMBER, "SE/1118/022");
-        cvStudent.put(studentContract.StudentEntry.STUDENTS_PHONE_NUMBER, "8789731");
-        cvStudent.put(studentContract.StudentEntry.STUDENTS_EMAIL, "j.k@unasat.sr");
+        cvStudent.put(studentContract.StudentEntry.STUDENTS_NAME, "Kasdiran");
+        cvStudent.put(studentContract.StudentEntry.STUDENTS_BIRTHDATE, "28-11-00");
+        cvStudent.put(studentContract.StudentEntry.STUDENTS_ADRESS, "Mijnhoop laan 7");
+        cvStudent.put(studentContract.StudentEntry.STUDENTS_DISTRICT, "Paramaribo");
+        cvStudent.put(studentContract.StudentEntry.STUDENTS_STUDENT_NUMBER, "SE/1118/009");
+        cvStudent.put(studentContract.StudentEntry.STUDENTS_PHONE_NUMBER, "8893992");
+        cvStudent.put(studentContract.StudentEntry.STUDENTS_EMAIL, "j.kasdiran@unasat.sr");
         db.insert(studentContract.StudentEntry.TABLE_NAME, null, cvStudent);
         cvStudent.clear();
         cvStudent.put(studentContract.StudentEntry.STUDENTS_FIRST_NAME, "Zareef");
-        cvStudent.put(studentContract.StudentEntry.STUDENTS_NAME, "Soet");
+        cvStudent.put(studentContract.StudentEntry.STUDENTS_NAME, "Soetodrono");
         cvStudent.put(studentContract.StudentEntry.STUDENTS_BIRTHDATE, "01-08-98");
-        cvStudent.put(studentContract.StudentEntry.STUDENTS_ADRESS, "Kwattaweg 685");
-        cvStudent.put(studentContract.StudentEntry.STUDENTS_DISTRICT, "Wanica");
+        cvStudent.put(studentContract.StudentEntry.STUDENTS_ADRESS, "Kwatta straat 685");
+        cvStudent.put(studentContract.StudentEntry.STUDENTS_DISTRICT, "Commewijne");
         cvStudent.put(studentContract.StudentEntry.STUDENTS_STUDENT_NUMBER, "SE/1118/023");
         cvStudent.put(studentContract.StudentEntry.STUDENTS_PHONE_NUMBER, "8789731");
-        cvStudent.put(studentContract.StudentEntry.STUDENTS_EMAIL, "z.s@unasat.sr");
+        cvStudent.put(studentContract.StudentEntry.STUDENTS_EMAIL, "z.soetodrono@unasat.sr");
         db.insert(studentContract.StudentEntry.TABLE_NAME, null, cvStudent);
 
         Log.d(TAG, "setDummiCredentials: Data inserted");
